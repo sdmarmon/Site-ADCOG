@@ -27,7 +27,16 @@ create table personne (
     role varchar(255) not null,
     adherent boolean not null DEFAULT 0,
     login varchar(255) not null,
-    password varchar(255) not null
+    password varchar(255) not null,
+    nom varchar(255) not null,
+    prenom varchar(255) not null,
+    mail varchar(255) not null,
+    promotion integer not null,
+    adresse varchar(255) not null,
+    telephone varchar(255) not null,
+    site varchar(255) not null,
+    photo varchar(255) not null,
+    bio varchar(4095) not null
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 create table postuler (
