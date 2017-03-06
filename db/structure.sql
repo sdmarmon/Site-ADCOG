@@ -51,6 +51,12 @@ create table sauvegarder (
     personne_id integer not null
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
+create table creer (
+    creer_id integer not null primary key auto_increment,
+    offre_id integer not null,
+    personne_id integer not null
+) engine=innodb character set utf8 collate utf8_unicode_ci;
+
 create table est_dispo (
     est_dispo_id integer not null primary key auto_increment,
     offre_id integer not null,
