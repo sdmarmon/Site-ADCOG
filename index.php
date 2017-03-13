@@ -14,7 +14,7 @@ session_start();
     <body>
         <div class="container">
             <?php require_once "includes/header.php"; ?>
-            <div class="">
+            <div>
                 <div>
                     <img class="img-responsive center-block" src="images/diplomes_adcog.jpg" title="ADCOG Logo" />
                 </div>
@@ -40,9 +40,10 @@ session_start();
                     </div>
                 </div>
             </div>
-            <?php require_once "includes/footer.php"; ?>
+            
         </div>
-
+        <?php require_once "includes/footer.php";?>
+        
         <?php require_once "includes/scripts.php"; ?>
     </body>
 

@@ -13,7 +13,7 @@ session_start();
     ?>
 
     <body>
-        <div class="container">
+        <div class="container signup">
             <?php require_once "includes/header.php"; ?>
             <h2 class="text-center">Inscription</h2>
 
@@ -75,10 +75,8 @@ session_start();
                     
                 </form> 
             </div>
-
-            <?php require_once "includes/footer.php"; ?>
         </div>
-
+        <?php require_once "includes/footer.php"; ?>
         <?php require_once "includes/scripts.php"; ?>
     </body>
 

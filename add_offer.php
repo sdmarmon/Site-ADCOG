@@ -143,11 +143,9 @@ session_start();
                         </div>
                     </div>
                 </form> 
-            </div>
-
-            <?php require_once "includes/footer.php"; ?>
+            </div>         
         </div>
-
+        <?php require_once "includes/footer.php"; ?>
         <?php require_once "includes/scripts.php"; ?>
     </body>
 

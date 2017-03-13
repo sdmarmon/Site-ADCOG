@@ -5,12 +5,12 @@ body {
 .footer {
     border-top: 1px solid #ccc;
     padding-top: 10px;  
-    margin-bottom: 10px;
-    text-align: center;
+    padding-bottom: 10px;
+    text-align: center;    
 }
 
-.footer p {
-	margin: 0;
+.footer a{
+   color: #376b96;
 }
 
 .footer img {
@@ -19,4 +19,8 @@ body {
 
 p {
     text-align: justify;
+}
+
+.signup{
+    padding-bottom: 115px;
 }
