@@ -14,6 +14,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="add_offer.php">Ajouter une offre</a></li>
                 <li><a href="update_offer.php">Modifier une offre</a></li>
+                <hr style="border-top:1px solid black">
             </ul>
             <?php if (isUserConnected()) { ?>
                 <ul class="nav navbar-nav">
