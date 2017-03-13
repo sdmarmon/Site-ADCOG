@@ -3,23 +3,19 @@ body {
 }
 
 .footer {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
+	background: #EFEFEF;
+	height: auto;
+	padding-top: 5px;
+	position: absolute;
+	width: 100%;
+    bottom:0;
+    left:0;
+	border-bottom: 1px solid #000000;
+	border-top: 1px solid #000000;
 }
-
-.movieTitle:hover,
-.movieTitle:focus {
-    text-decoration: none;
+.footer p {
+	margin: 0;
 }
-
-.movieContent {
-    text-align: justify;
-}
-
-.movieImage {
-    border-radius: 7px;
-    border: 4px solid white;
-    box-shadow: 1px 1px 10px #555;
+.footer img {
+	max-width: 100%;
 }

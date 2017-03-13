@@ -8,9 +8,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">ADCOG</a>
+            <a class="navbar-brand" href="index.php">Accueil</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-target">
+            <ul class="nav navbar-nav">
+                <li><a href="add_offer.php">Ajouter une offre</a></li>
+                <li><a href="update_offer.php">Modifier une offre</a></li>
+            </ul>
             <?php if (isUserConnected()) { ?>
                 <ul class="nav navbar-nav">
                     <li><a href="movie_add.php">Ajouter un film</a></li>
@@ -20,7 +24,7 @@
                 <?php if (isUserConnected()) { ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span> Bienvenue, <?= $_SESSION['login'] ?> <b class="caret"></b>
+                            <span class="glyphicon glyphicon-user"></span> <?= $_PERSONNE['Nom'] ?> <?= $_PERSONNE['Prenom'] ?> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="logout.php">Se déconnecter</a></li>
@@ -28,15 +32,8 @@
                         </ul>
                     </li>
                 <?php } else { ?>
-                    <li><a href="signup">Inscription</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span> Non connecté <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="login.php">Connexion</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="signup.php">Inscription</a></li>
+                    <li><a href="login.php">Connexion</a></li>
                 <?php } ?>
             </ul>
         </div>
