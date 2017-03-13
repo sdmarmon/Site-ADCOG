@@ -23,3 +23,7 @@ body {
     border: 4px solid white;
     box-shadow: 1px 1px 10px #555;
 }
+
+p {
+    text-align: justify;
+}
