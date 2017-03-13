@@ -37,7 +37,7 @@ session_start();
                             <label class="control-label ">Type d'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <select name="select" class="form-control">
+                            <select name="offer_type" class="form-control">
                                 <option value="valeur1" selected>Stage</option> 
                                 <option value="valeur2" >Emploi</option>
                             </select>
@@ -51,7 +51,7 @@ session_start();
                             <label class="control-label">Nom de l'entreprise</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="company_name" value="" class="form-control" placeholder="Entrez son réalisateur" required>
+                            <input type="text" name="company_name" value="" class="form-control" placeholder="Entrez le nom de l'entreprise" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -61,7 +61,7 @@ session_start();
                             <label class="control-label">Secteur d'activité</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="activity" class="form-control" placeholder="Entrez sa description courte" required></textarea>
+                            <textarea name="activity" class="form-control" placeholder="Entrez le secteur d'activité" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,7 +71,7 @@ session_start();
                             <label class="control-label">Adresse de l'entreprise</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="address" value="" class="form-control" placeholder="Entrez son réalisateur" required>
+                            <input type="text" name="address" value="" class="form-control" placeholder="Entrez l'adresse de l'entreprise" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,7 +81,7 @@ session_start();
                             <label class="control-label">Résumé de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="resume" value="" class="form-control" placeholder="Entrez son réalisateur" required>
+                            <input type="text" name="resume" value="" class="form-control" placeholder="Entrez le résumé de l'offre" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -91,7 +91,7 @@ session_start();
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="details" class="form-control" placeholder="Entrez sa description courte" required></textarea>
+                            <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -112,7 +112,7 @@ session_start();
                             <label class="control-label">Rémunération</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="director" value="" class="form-control" placeholder="Entrez son réalisateur" required>
+                            <input type="number" name="remuneration" value="" class="form-control" placeholder="Entrez la rémunération" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -122,7 +122,7 @@ session_start();
                             <label class="control-label">Nom du contact</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="number" name="year" value="" class="form-control" placeholder="Entrez son année de sortie" required>
+                            <input type="text" name="contact_name" value="" class="form-control" placeholder="Entrez le nom du contact" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -132,7 +132,7 @@ session_start();
                             <label class="control-label">Mail du contact</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="number" name="year" value="" class="form-control" placeholder="Entrez son année de sortie" required>
+                            <input type="text" name="contact_mail" value="" class="form-control" placeholder="Entrez le mail du contact" required>
                         </div>
                     </div>
                     <div class="form-group">
