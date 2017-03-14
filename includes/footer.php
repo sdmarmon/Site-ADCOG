@@ -1,4 +1,4 @@
-<footer class="footer bg-info">
+<footer class="footer navbar-fixed-bottom bg-info">
     <div class="container">
         <div class="pull-left">
             <a href="index.php">Accueil</a> | 

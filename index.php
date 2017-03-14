@@ -42,6 +42,7 @@ session_start();
             </div>
             
         </div>
+        <div class="push"></div>
         <?php require_once "includes/footer.php";?>
         
         <?php require_once "includes/scripts.php"; ?>
