@@ -10,11 +10,11 @@ body {
 }
 
 .footer a{
-   color: #376b96;
+    color: #376b96;
 }
 
 .footer img {
-	max-width: 100%;
+    max-width: 100%;
 }
 
 p {
@@ -23,4 +23,11 @@ p {
 
 .push{
     height :51px;
+}
+
+.blue{
+    color :#337ab7 !important;
+}
+a.blue:hover{
+    color:#286090 !important;
 }

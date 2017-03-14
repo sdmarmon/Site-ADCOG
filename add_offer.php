@@ -2,6 +2,34 @@
 require_once "includes/functions.php";
 session_start();
 
+if (isset($_POST['title'])) {
+    // the offer form has been posted : retrieve offer parameters
+    $title = escape($_POST['title']);
+    $offer_type = escape($_POST['offer_type']); 
+    $company_name = escape($_POST['company_name']);
+    $activity = escape($_POST['activity']);
+    $address = escape($_POST['address']);
+    $resume = escape($_POST['resume']);
+    $details = escape($_POST['details']);
+    $remuneration = escape($_POST['remuneration']);
+    $contact_name = escape($_POST['contact_name']);
+    $contact_mail = escape($_POST['contact_mail']);
+
+    $tmpFile = $_FILES['file']['tmp_name'];
+    if (is_uploaded_file($tmpFile)) {
+        // upload job offer pdf
+        $file = basename($_FILES['file']['name']);
+        $uploadedFile = "pdf/$file";
+        move_uploaded_file($_FILES['file']['tmp_name'], $uploadedFile);
+    }
+    
+    // insert movie into BD
+    //$stmt = getDb()->prepare('insert into movie(mov_title, mov_description_short, mov_description_long, mov_director, mov_year, mov_image) values (?, ?, ?, ?, ?, ?)');
+    //$stmt->execute(array($title, $shortDescription, $longDescription,$director, $year, $image));
+        
+    redirect("index.php");
+}
+
 ?>
 
 <!doctype html>
@@ -18,7 +46,7 @@ session_start();
             <h2 class="text-center">Ajouter une offre</h2>
 
             <div class="well">
-                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="movie_add.php" method="post">
+                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="add.php" method="post">
                     <input type="hidden" name="id" value="">
                     <div class="form-group">
                         <div class="col-sm-2">
@@ -101,8 +129,8 @@ session_start();
                             <label class="control-label">Fiche de poste</label>
                         </div>
                         <div class="col-sm-6">
-                            <label for="files" class="btn btn-default"><span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> Choisir un fichier</label>
-                            <input id="files" type="file" name="file" class="filestyle pull-right"  style="visibility:hidden;"/>
+                            <label for="files" class="btn btn-default"><span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> Choisir un fichier PDF</label>
+                            <input id="files" type="file" name="file" class="filestyle pull-right"  style="visibility:hidden;" accept="application/pdf"/>
                         </div>
                     </div>
                     <div class="form-group">
