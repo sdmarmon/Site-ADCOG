@@ -9,7 +9,6 @@ if (isset($_POST['title'])) {
     $company_name = escape($_POST['company_name']);
     $activity = escape($_POST['activity']);
     $address = escape($_POST['address']);
-    $resume = escape($_POST['resume']);
     $details = escape($_POST['details']);
     $remuneration = escape($_POST['remuneration']);
     $contact_name = escape($_POST['contact_name']);
@@ -102,16 +101,6 @@ if (isset($_POST['title'])) {
                         </div>
                         <div class="col-sm-6">
                             <input type="text" name="address" value="" class="form-control" placeholder="Entrez l'adresse de l'entreprise" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                        </div>
-                        <div class="col-sm-2 pull-left">
-                            <label class="control-label">Résumé de l'offre</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" name="resume" value="" class="form-control" placeholder="Entrez le résumé de l'offre" required>
                         </div>
                     </div>
                     <div class="form-group">
