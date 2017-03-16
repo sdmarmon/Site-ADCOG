@@ -2,7 +2,7 @@
 require_once "includes/functions.php";
 session_start();
 
-if (isset($_POST['title'])) {
+if (isset($_POST['action'])) {
     // the offer form has been posted : retrieve offer parameters
     $title = escape($_POST['title']);
     $offer_type = escape($_POST['offer_type']); 
@@ -25,8 +25,8 @@ if (isset($_POST['title'])) {
     
     $date_creation=time();
     
-    // insert movie into BD
-    $stmt = getDb()->prepare('INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, `remuneration`, `contact`, `fichier`, `offre_code`, `description`, `date_creation`, `nom_contact`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
+    // Retrive movie into BD
+    $stmt = getDb()->query('SELECT * FROM `offre` WHERE `offre_id`= '.$_POST['offre_id']);
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, 'zaz5z5488r', $details, $date_creation, $contact_name));
         
     redirect("index.php");
@@ -38,7 +38,7 @@ if (isset($_POST['title'])) {
 <html>
 
     <?php 
-    $pageTitle = "Ajouter une offre";
+    $pageTitle = "une offre";
     require_once "includes/head.php"; 
     ?>
 

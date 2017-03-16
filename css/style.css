@@ -31,3 +31,7 @@ p {
 a.blue:hover{
     color:#286090 !important;
 }
+
+.pushFooter{
+    margin-bottom: 51px;
+}

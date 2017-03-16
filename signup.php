@@ -12,8 +12,8 @@ if (isset($_POST['surname'])) {
     $mail = escape($_POST['mail']);
     
     // insert user into BD
-    //$stmt = getDb()->prepare('insert into movie(mov_title, mov_description_short, mov_description_long, mov_director, mov_year, mov_image) values (?, ?, ?, ?, ?, ?)');
-    //$stmt->execute(array($title, $shortDescription, $longDescription,$director, $year, $image));
+    $stmt = getDb()->prepare('INSERT INTO `personne`(`role`, `adherent`, `login`, `password`) VALUES (?,?,?,?)');
+    $stmt->execute(array($state, 0, $login,$password));
         
     redirect("index.php");
 }
@@ -29,7 +29,7 @@ if (isset($_POST['surname'])) {
     ?>
 
     <body>
-        <div class="container">
+        <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
             <h2 class="text-center">Inscription</h2>
 
@@ -118,7 +118,6 @@ if (isset($_POST['surname'])) {
                 </form> 
             </div>
         </div>
-        <div class="push"></div>
         
         <?php require_once "includes/footer.php"; ?>
         <?php require_once "includes/scripts.php"; ?>

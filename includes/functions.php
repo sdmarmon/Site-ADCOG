@@ -26,3 +26,8 @@ function redirect($url) {
 function escape($value) {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
 }
+
+// Transform a timestamp into a date 
+function timestampToDate($t) {
+    return date("d-m-Y",$t);
+}

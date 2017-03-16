@@ -2,8 +2,17 @@
 require_once "includes/functions.php";
 session_start();
 
-// Retrieve all movies
-//$movies = getDb()->query('select * from movie order by mov_id desc'); 
+// Retrieve offers
+if(isUserConnected()){
+    if($_SESSION['adherent'] == 1){
+        $date_validation = time()-(60*60*24*3);
+        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '.$date_validation); 
+    }
+    else{
+        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1'); 
+    }
+}
+
 ?>
 
 <!doctype html>
@@ -12,8 +21,38 @@ session_start();
     <?php require_once "includes/head.php"; ?>
 
     <body>
-        <div class="container">
+        <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
+            <?php if(isUserConnected()){ ?>
+            <div>
+                <div>
+                    <form class="navbar-form" role="search" method="post">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="input-group col-sm-6">
+                            <input type="text" class="form-control" placeholder="Rechercher une offre" name="search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div> 
+                    </form>
+                </div>
+                <ul class="list-group">
+                    <?php foreach ($offers as $offer) { ?>
+                    <li class="list-group-item list-group-item-action">
+                        <a href="offer.php?id=<?= $offer['offre_id'] ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <strong class="text-muted pull-right"><?= $offer['type'] ?></strong>
+                            <h4 class="mb-1 text-primary"><?= $offer['titre'] ?></h4>
+                            <p class="mb-1 pull-right"><?= $offer['secteur'] ?></p>
+                            <p class="mb-1"><?= $offer['entreprise'] ?></p>
+                            <p class="mb-1 pull-right "><?= timestampToDate($offer['date_creation']) ?></p>
+                            <p class="mb-1"><?= $offer['lieu'] ?></p>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+            <?php }else{ ?>
             <div>
                 <div>
                     <img class="img-responsive center-block" src="images/diplomes_adcog.jpg" title="ADCOG Logo" />
@@ -40,11 +79,11 @@ session_start();
                     </div>
                 </div>
             </div>
-            
+            <?php } ?>
         </div>
-        <div class="push"></div>
+
         <?php require_once "includes/footer.php";?>
-        
+
         <?php require_once "includes/scripts.php"; ?>
     </body>
 

@@ -9,7 +9,9 @@ if (!empty($_POST['login']) and !empty($_POST['password'])) {
     $stmt->execute(array($login, $password));
     if ($stmt->rowCount() == 1) {
         // Authentication successful
+        $result = $stmt->fetch();
         $_SESSION['login'] = $login;
+        $_SESSION['adherent'] = $result['adherent'];
         redirect("index.php");
     }
     else {
