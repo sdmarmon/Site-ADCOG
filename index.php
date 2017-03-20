@@ -6,7 +6,7 @@ session_start();
 if(isUserConnected()){
     if($_SESSION['adherent'] == 1){
         $date_validation = time()-(60*60*24*3);
-        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '.$date_validation); 
+        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '.$date_validation);
     }
     else{
         $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1'); 

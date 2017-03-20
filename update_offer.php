@@ -4,10 +4,12 @@ session_start();
 
 $exist = false;
 if (isset($_POST['modif'])) {
-    $offer = getDb()->query('SELECT * FROM `offre` WHERE `offre_code` = '.$_POST['offre_code']); 
-    if ($offer->rowCount() == 1) {
-        $exist = true;
+    $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_code` = '".$_POST["offre_code"]."' ");
+    if($result->rowCount() >=1) {
+        $exist = true;              
+        $offer = $result->fetch();
     }
+
 }
 
 ?>
@@ -26,9 +28,9 @@ if (isset($_POST['modif'])) {
             <h2 class="text-center">Modifier une offre</h2>
 
             <div class="well">
-                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="add.php" method="post">
+                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="update_offer.php" method="post">
 
-                    <?php if (!isset($_POST['modif']) && !exist) {
+                    <?php if (!isset($_POST['modif']) && !$exist) {
 
                     ?>
                     <input type="hidden" name="modif" value="1">
@@ -86,7 +88,7 @@ if (isset($_POST['modif'])) {
                             <label class="control-label">Secteur d'activité</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="activity" value="<?= $offer['secteur'] ?>" class="form-control" placeholder="Entrez le secteur d'activité" required></textarea>
+                            <input type="text" name="activity" value="<?= $offer['secteur'] ?>" class="form-control" placeholder="Entrez le secteur d'activité" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -106,7 +108,7 @@ if (isset($_POST['modif'])) {
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="details" value="<?= $offer['description'] ?>" class="form-control" placeholder="Entrez les détails de l'offre" required></textarea>
+                            <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required><?= $offer['description'] ?></textarea>
                         </div>
                     </div>
                     <div class="form-group">
