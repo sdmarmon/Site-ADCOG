@@ -8,8 +8,7 @@ function getDb() {
     $password = "secret";
     $db = "adcog";
 
-    return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",
-        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 
 // Check if a user is connected
@@ -31,3 +30,17 @@ function escape($value) {
 function timestampToDate($t) {
     return date("d-m-Y",$t);
 }
+
+// Generate offer's code
+function generateCode(){
+    $chaine = 'azertyuiopqsdfghjklmwxcvbn123456789';
+    $nb_lettres = strlen($chaine) - 1;
+    $generation = '';
+    for($i=0; $i < 15; $i++)
+    {
+        $pos = mt_rand(0, $nb_lettres);
+        $car = $chaine[$pos];
+        $generation .= $car;
+    }
+    return $generation;
+} 
