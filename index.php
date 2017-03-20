@@ -4,7 +4,7 @@ session_start();
 
 // Retrieve offers
 if(isUserConnected()){
-    if($_SESSION['adherent'] == 1){
+    if($_SESSION['adherent'] == 0){
         $date_validation = time()-(60*60*24*3);
         $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '.$date_validation); 
     }

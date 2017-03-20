@@ -19,6 +19,7 @@ if (isset($_POST['surname'])) {
     $_SESSION['adherent'] = 0;
     $_SESSION['nom'] = $surname;
     $_SESSION['prenom'] = $name;
+    $_SESSION['role'] = $state;
         
     redirect("index.php");
 }

@@ -18,15 +18,28 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if (isUserConnected()) { ?>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['prenom'] ?> <?php echo $_SESSION['nom'] ?> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="cart.php">Offres favorites</a></li>
-                            <li><a href="logout.php">Déconnexion</a></li>
-                        </ul>
-                    </li>
+                    <?php if (isUserAdmin()) { ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <?php echo 'Administration'; ?> <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="admin_members.php">Adhérents</a></li>
+                                <li><a href="admin_offers.php">Offres</a></li>
+                                <li><a href="admin_validate.php">Validation</a></li>
+                            </ul>
+                        </li>                        
+                    <?php } ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['prenom'] ?> <?php echo $_SESSION['nom'] ?> <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="cart.php">Offres favorites</a></li>
+                                <li><a href="logout.php">Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    
                 <?php } else { ?>
                     <li><a href="signup.php" class="blue">Inscription</a></li>
                     <li><a href="login.php" class="blue">Connexion</a></li>
