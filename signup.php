@@ -12,8 +12,13 @@ if (isset($_POST['surname'])) {
     $mail = escape($_POST['mail']);
     
     // insert user into BD
-    $stmt = getDb()->prepare('INSERT INTO `personne`(`role`, `adherent`, `login`, `password`) VALUES (?,?,?,?)');
-    $stmt->execute(array($state, 0, $login,$password));
+    $stmt = getDb()->prepare('INSERT INTO `personne`(`role`, `adherent`, `login`, `password`, `nom`, `prenom`, `mail`) VALUES (?,?,?,?,?,?,?)');
+    $stmt->execute(array($state, 0, $login, $password, $surname, $name, $mail));
+    
+    $_SESSION['login'] = $login;
+    $_SESSION['adherent'] = 0;
+    $_SESSION['nom'] = $surname;
+    $_SESSION['prenom'] = $name;
         
     redirect("index.php");
 }

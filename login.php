@@ -12,6 +12,8 @@ if (!empty($_POST['login']) and !empty($_POST['password'])) {
         $result = $stmt->fetch();
         $_SESSION['login'] = $login;
         $_SESSION['adherent'] = $result['adherent'];
+        $_SESSION['nom'] = $result['nom'];
+        $_SESSION['prenom'] = $result['prenom'];
         redirect("index.php");
     }
     else {
