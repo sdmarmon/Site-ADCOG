@@ -4,7 +4,7 @@ session_start();
 
 // Retrieve offers
 if(isUserConnected()){
-    if($_SESSION['adherent'] == 1){
+    if($_SESSION['adherent'] == 0){
         $date_validation = time()-(60*60*24*3);
         $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '.$date_validation);
     }
@@ -40,7 +40,7 @@ if(isUserConnected()){
                 <ul class="list-group">
                     <?php foreach ($offers as $offer) { ?>
                     <li class="list-group-item list-group-item-action">
-                        <a href="offer.php?id=<?= $offer['offre_id'] ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <a href="details_offer.php?id=<?= $offer['offre_id'] ?>" class="list-group-item list-group-item-action flex-column align-items-start">
                             <strong class="text-muted pull-right"><?= $offer['type'] ?></strong>
                             <h4 class="mb-1 text-primary"><?= $offer['titre'] ?></h4>
                             <p class="mb-1 pull-right"><?= $offer['secteur'] ?></p>

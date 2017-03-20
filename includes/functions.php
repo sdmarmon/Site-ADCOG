@@ -16,6 +16,15 @@ function isUserConnected() {
     return isset($_SESSION['login']);
 }
 
+function isUserAdmin() {
+    if (isUserConnected()) {
+        return ($_SESSION['role']=='administrateur');
+    }
+    else  {
+        return false;
+    }
+}
+
 // Redirect to a URL
 function redirect($url) {
     header("Location: $url");
