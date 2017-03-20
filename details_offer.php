@@ -2,34 +2,12 @@
 require_once "includes/functions.php";
 session_start();
 
-if (isset($_POST['action'])) {
-    // the offer form has been posted : retrieve offer parameters
-    $title = escape($_POST['title']);
-    $offer_type = escape($_POST['offer_type']); 
-    $company_name = escape($_POST['company_name']);
-    $activity = escape($_POST['activity']);
-    $address = escape($_POST['address']);
-    $resume = escape($_POST['resume']);
-    $details = escape($_POST['details']);
-    $remuneration = escape($_POST['remuneration']);
-    $contact_name = escape($_POST['contact_name']);
-    $contact_mail = escape($_POST['contact_mail']);
-
-    $tmpFile = $_FILES['file']['tmp_name'];
-    if (is_uploaded_file($tmpFile)) {
-        // upload job offer pdf
-        $file = basename($_FILES['file']['name']);
-        $uploadedFile = "pdf/$file";
-        move_uploaded_file($_FILES['file']['tmp_name'], $uploadedFile);
-    }
-    
-    $date_creation=time();
-    
-    // Retrive movie into BD
-    $stmt = getDb()->query('SELECT * FROM `offre` WHERE `offre_id`= '.$_POST['offre_id']);
-    $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, 'zaz5z5488r', $details, $date_creation, $contact_name));
-        
-    redirect("index.php");
+// Retrieve offer
+if(isUserConnected()){
+    $offer_id = $_GET['id'];
+    $stmt = getDb()->prepare('SELECT * FROM `offre` WHERE `offre_id` = ? ');
+    $stmt->execute(array($offer_id));
+    $offer = $stmt->fetch(); // Access first (and only) result line
 }
 
 ?>
@@ -45,11 +23,10 @@ if (isset($_POST['action'])) {
     <body>
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
-            <h2 class="text-center">Ajouter une offre</h2>
+            <h2 class="text-center">Détails de l'offre</h2>
 
             <div class="well">
-                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="add.php" method="post">
-                    <input type="hidden" name="id" value="">
+                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="postulate.php" method="post">
                     <div class="form-group">
                         <div class="col-sm-2">
                         </div>
@@ -57,7 +34,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Titre</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="title" value="" class="form-control" placeholder="Entrez le titre de l'offre" required autofocus>
+                            <input type="text" name="title" value="<?= $offer['titre'] ?>" disabled="disabled" class="form-control" required autofocus>
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,10 +44,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label ">Type d'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <select name="offer_type" class="form-control">
-                                <option value="valeur1" selected>Stage</option> 
-                                <option value="valeur2" >Emploi</option>
-                            </select>
+                            <input type="text" name="offer_type" value="<?= $offer['type'] ?>" disabled="disabled" class="form-control" required autofocus>
                         </div>
                     </div>
 
@@ -81,7 +55,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Nom de l'entreprise</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="company_name" value="" class="form-control" placeholder="Entrez le nom de l'entreprise" required>
+                            <input type="text" name="company_name" value="<?= $offer['entreprise'] ?>" disabled="disabled" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -91,7 +65,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Secteur d'activité</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="activity" class="form-control" placeholder="Entrez le secteur d'activité" required></textarea>
+                            <input type="text" name="activity" value="<?= $offer['secteur'] ?>" disabled="disabled" class="form-control" required autofocus>
                         </div>
                     </div>
                     <div class="form-group">
@@ -101,17 +75,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Adresse de l'entreprise</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="address" value="" class="form-control" placeholder="Entrez l'adresse de l'entreprise" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                        </div>
-                        <div class="col-sm-2 pull-left">
-                            <label class="control-label">Résumé de l'offre</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" name="resume" value="" class="form-control" placeholder="Entrez le résumé de l'offre" required>
+                            <input type="text" name="adress" value="<?= $offer['lieu'] ?>" disabled="disabled" class="form-control" required autofocus>
                         </div>
                     </div>
                     <div class="form-group">
@@ -121,7 +85,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required></textarea>
+                            <textarea rows="10" name="details" disabled="disabled" class="form-control" required autofocus><?= $offer['description'] ?></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -142,7 +106,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Rémunération</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="number" name="remuneration" value="" class="form-control" placeholder="Entrez la rémunération" required>
+                            <input type="text" name="remuneration" value="<?= $offer['remuneration'] ?>" disabled="disabled" class="form-control" required autofocus>
                         </div>
                     </div>
                     <div class="form-group">
@@ -152,7 +116,7 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Nom du contact</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="contact_name" value="" class="form-control" placeholder="Entrez le nom du contact" required>
+                            <input type="text" name="contact_name" value="<?= $offer['nom_contact'] ?>" disabled="disabled" class="form-control" required autofocus>
                         </div>
                     </div>
                     <div class="form-group">
@@ -162,14 +126,14 @@ if (isset($_POST['action'])) {
                             <label class="control-label">Mail du contact</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="contact_mail" value="" class="form-control" placeholder="Entrez le mail du contact" required>
+                            <input type="text" name="contact_mail" value="<?= $offer['contact'] ?>" disabled="disabled" class="form-control" required autofocus>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-4">
                         </div>
                         <div class="col-sm-6 text-center ">
-                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span> Ajouter</button>
+                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span>Postuler</button>
                         </div>
                     </div>
                 </form> 
