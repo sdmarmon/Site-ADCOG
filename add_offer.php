@@ -21,13 +21,14 @@ if (isset($_POST['title'])) {
         $uploadedFile = "pdf/$file";
         move_uploaded_file($_FILES['file']['tmp_name'], $uploadedFile);
     }
-    
+
     $date_creation=time();
+    $code = generateCode();
     
     // insert movie into BD
     $stmt = getDb()->prepare('INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, `remuneration`, `contact`, `fichier`, `offre_code`, `description`, `date_creation`, `nom_contact`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
-    $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, 'zaz5z5488r', $details, $date_creation, $contact_name));
-        
+    $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name));
+
     redirect("index.php");
 }
 
@@ -47,7 +48,7 @@ if (isset($_POST['title'])) {
             <h2 class="text-center">Ajouter une offre</h2>
 
             <div class="well">
-                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="add.php" method="post">
+                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="add_offer.php" method="post">
                     <input type="hidden" name="id" value="">
                     <div class="form-group">
                         <div class="col-sm-2">
@@ -67,8 +68,8 @@ if (isset($_POST['title'])) {
                         </div>
                         <div class="col-sm-6">
                             <select name="offer_type" class="form-control">
-                                <option value="valeur1" selected>Stage</option> 
-                                <option value="valeur2" >Emploi</option>
+                                <option value="Stage" selected>Stage</option> 
+                                <option value="Emploi" >Emploi</option>
                             </select>
                         </div>
                     </div>
@@ -90,7 +91,7 @@ if (isset($_POST['title'])) {
                             <label class="control-label">Secteur d'activité</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="activity" class="form-control" placeholder="Entrez le secteur d'activité" required></textarea>
+                            <input type="text" name="activity" class="form-control" placeholder="Entrez le secteur d'activité" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -120,8 +121,11 @@ if (isset($_POST['title'])) {
                             <label class="control-label">Fiche de poste</label>
                         </div>
                         <div class="col-sm-6">
-                            <label for="files" class="btn btn-default"><span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> Choisir un fichier PDF</label>
-                            <input id="files" type="file" name="file" class="filestyle pull-right"  style="visibility:hidden;" accept="application/pdf"/>
+                            <label class="btn btn-default" for="my-file-selector">
+                                <input id="my-file-selector" type="file" name="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());" accept="application/pdf">
+                                <span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> Choisir un fichier PDF
+                            </label>
+                            <span class='label label-default' id="upload-file-info"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -164,7 +168,7 @@ if (isset($_POST['title'])) {
                 </form> 
             </div>         
         </div>
-        
+
         <?php require_once "includes/footer.php"; ?>
         <?php require_once "includes/scripts.php"; ?>
     </body>
