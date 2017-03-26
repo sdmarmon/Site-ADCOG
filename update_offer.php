@@ -64,9 +64,9 @@ if (isset($_POST['modif'])) {
                             <label class="control-label ">Type d'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <select name="offer_type" class="form-control">
-                                <option value="valeur1" selected>Stage</option> 
-                                <option value="valeur2" >Emploi</option>
+                            <select name="offer_type" class="form-control">     
+                                <option value="Stage"  <?php if ($offer['type'] == "Stage") { echo "selected" ;} ?> >Stage</option> 
+                                <option value="Emploi"  <?php if ($offer['type'] == "Emploi") { echo "selected" ;} ?> >Emploi</option>
                             </select>
                         </div>
                     </div>
