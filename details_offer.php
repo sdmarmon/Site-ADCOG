@@ -85,7 +85,9 @@ if(isUserConnected()){
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea rows="10" name="details" disabled="disabled" class="form-control" required autofocus><?= $offer['description'] ?></textarea>
+                            <div class="expandingArea">
+                                <textarea name="details" disabled="disabled" class="form-control" required autofocus><?= $offer['description'] ?></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
