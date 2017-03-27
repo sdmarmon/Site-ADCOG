@@ -146,9 +146,11 @@ if(isset($_POST['title'])) {
                             <label class="control-label">Fiche de poste</label>
                         </div>
                         <div class="col-sm-6">
-                            <label for="files" class="btn btn-default"><span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> Choisir un fichier PDF</label>
-                            <input id="files" type="file" name="file" class="filestyle pull-right"  style="visibility:hidden;" accept="application/pdf"/>
-                            <p><?= $offer['fichier'] ?></p>
+                            <label class="btn btn-default" for="my-file-selector">
+                                <input id="my-file-selector" type="file" name="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());" accept="application/pdf">
+                                <span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> Choisir un fichier PDF
+                            </label>
+                            <span class='label label-default' id="upload-file-info"><?= $offer['fichier'] ?></span>
                         </div>
                     </div>
                     <div class="form-group">
