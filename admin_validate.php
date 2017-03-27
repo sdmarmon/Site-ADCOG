@@ -4,8 +4,22 @@ session_start();
 
 // Retrieve offers
 if(isUserAdmin()){
+    if(isset($_GET["action"])){
+        if($_GET["action"]=='validate'){
+            //validate offer
+            $stmt = getDb()->prepare('UPDATE `offre` SET `valide`= ? WHERE offre_id= ? ');
+            $stmt->execute(array(1,$_GET["offre_id"]));
+        }
+        else if($_GET["action"]=='remove'){
+            //remove offer
+            //$stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
+            //$stmt->execute(array($_GET["offre_id"]));
+        }
+    }
+
     $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 0 ORDER BY `date_validation` DESC');
 }
+
 
 ?>
 
@@ -48,32 +62,23 @@ if(isUserAdmin()){
                         </thead>
                         <tbody>
                             <?php foreach ($offers as $offer) { ?>
-                            
-                                <tr onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'">
-                                    <th class="text-center" scope="row"><?= $offer['offre_id'] ?></th>
-                                    <td><?= $offer['type'] ?></td>
-                                    <td><?= $offer['titre'] ?></td>
-                                    <td><?= $offer['secteur'] ?></td>
-                                    <td><?= $offer['entreprise'] ?></td>
-                                    <td><?= timestampToDate($offer['date_creation'])?></td>
-                                    <td><?= $offer['lieu'] ?></td>
 
-                                    <td>
-                                        <form action="update_offer.php" method="post">
-                                            <input type="hidden" name="modif" value="1">
-                                            <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                            <button class="btn btn-xs btn-success btn-block" type="submit"><i class="glyphicon glyphicon-ok"></i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="update_offer.php" method="post">
-                                            <input type="hidden" name="modif" value="1">
-                                            <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                            <button class="btn btn-xs btn-danger btn-block" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            
+                            <tr onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'">
+                                <th class="text-center" scope="row"><?= $offer['offre_id'] ?></th>
+                                <td><?= $offer['type'] ?></td>
+                                <td><?= $offer['titre'] ?></td>
+                                <td><?= $offer['secteur'] ?></td>
+                                <td><?= $offer['entreprise'] ?></td>
+                                <td><?= timestampToDate($offer['date_creation'])?></td>
+                                <td><?= $offer['lieu'] ?></td>
+                                <td>
+                                    <a href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=validate" class="btn btn-xs btn-success btn-block" ><i class="glyphicon glyphicon-ok"></i></a>
+                                </td>
+                                <td>
+                                    <a href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" ><i class="glyphicon glyphicon-remove"></i></a>
+                                </td>
+                            </tr>
+
                             <?php } ?>
                         </tbody>
                     </table>

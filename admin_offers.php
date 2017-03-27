@@ -4,6 +4,19 @@ session_start();
 
 // Retrieve offers
 if(isUserAdmin()){
+    if(isset($_GET["action"])){
+        if($_GET["action"]=='update'){
+            //update offer
+            //$stmt = getDb()->prepare('UPDATE `offre` SET `valide`= ? WHERE offre_id= ? ');
+            //$stmt->execute(array(1,$_GET["offre_id"]));
+        }
+        else if($_GET["action"]=='remove'){
+            //remove offer
+            $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
+            $stmt->execute(array($_GET["offre_id"]));
+        }
+    }
+    
     $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC');
 }
 
@@ -59,18 +72,10 @@ if(isUserAdmin()){
                                     <td><?= $offer['lieu'] ?></td>
                                 </a>
                                 <td>
-                                    <form action="update_offer.php" method="post">
-                                        <input type="hidden" name="modif" value="1">
-                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                        <button class="btn btn-xs btn-warning btn-block" type="submit"><i class="glyphicon glyphicon-pencil"></i></button>
-                                    </form>
+                                    <a href="admin_offers.php?offre_id=<?= $offer['offre_id'] ?>&action=update" class="btn btn-xs btn-warning btn-block" ><i class="glyphicon glyphicon-pencil"></i></a>
                                 </td>
                                 <td>
-                                    <form action="update_offer.php" method="post">
-                                        <input type="hidden" name="modif" value="1">
-                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                        <button class="btn btn-xs btn-danger btn-block" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
-                                    </form>
+                                    <a href="admin_offers.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" ><i class="glyphicon glyphicon-remove"></i></a>
                                 </td>
                             </tr>
                             <?php } ?>
