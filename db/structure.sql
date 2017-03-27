@@ -14,7 +14,7 @@ create table offre (
     lieu varchar(255) not null,
     remuneration float not null,
     contact varchar(255) not null,
-    fichier varchar(255) not null,
+    fichier varchar(255),
     offre_code varchar(255) not null,
     description varchar(4095) not null,
     date_creation integer not null,

@@ -185,7 +185,7 @@ if(isset($_POST['title'])) {
                         <div class="col-sm-4">
                         </div>
                         <div class="col-sm-6 text-center ">
-                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span> Ajouter</button>
+                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span>Modifier</button>
                         </div>
                     </div>
                     <?php } ?>

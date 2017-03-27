@@ -6,10 +6,10 @@ session_start();
 if(isUserConnected()){
     if($_SESSION['adherent'] == 0){
         $date_validation = time()-(60*60*24*3);
-        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '.$date_validation);
+        $offers = getDb()->query("SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation."' ORDER BY `date_validation` DESC ");
     }
     else{
-        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1'); 
+        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC'); 
     }
 }
 
@@ -60,7 +60,7 @@ if(isUserConnected()){
                 <div>
                     <h2>Bienvenue sur le site de l'ADCOG</h2>
                     <div>
-                        <p>L'association des Diplômés en Cognitique est heureuse de vous présenter la première mise à jour de son système d'information. Nouveau format. Nouveau design. Nouvelles fonctionnalités. Ces améliorations sont les premières d'une longue liste pour fournir de plus en plus d'outils à la hauteur des attentes des anciens de l'  <a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">École Nationale Supérieure de Cognitique</a>.
+                        <p>L'association des Diplômés en Cognitique est heureuse de vous présenter la première mise à jour de son système d'information. Nouveau format. Nouveau design. Nouvelles fonctionnalités. Ces améliorations sont les premières d'une longue liste pour fournir de plus en plus d'outils à la hauteur des attentes des anciens de l'<a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">École Nationale Supérieure de Cognitique</a>.
                         </p>
                         <p>Pour nous soutenir dans cette démarche il vous suffit de vous inscrire via la page <a href="signup.php">Inscription</a>. Si vous êtes déjà inscrit, connectez-vous sur la page <a href="login.php">Connexion</a>.
                         </p>
@@ -72,7 +72,7 @@ if(isUserConnected()){
                     <br>
                     <h2>Le mot de l'association</h2>
                     <div>
-                        <p>Depuis 2007, l'ADCOG, association des anciens élèves de l' <a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">École Nationale Supérieure de Cognitique</a> et de l'Institut de Cognitique, facilite le rapprochement des anciens élèves et souhaite promouvoir la prise en compte de l'Homme dans la conception de produits et de services au sein des entreprises. Cela se concrétise notamment par l'organisation d'évènements tels que la Cognito'Conf, où des anciens échangent sur des sujets liés à la Cognitique. De plus, l'ADCOG participe chaque année au Gala de l'ENSC pour rencontrer les nouveaux diplômés et les soutenir lors de leurs premiers pas dans le monde professionnel.
+                        <p>Depuis 2007, l'ADCOG, association des anciens élèves de l'<a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">École Nationale Supérieure de Cognitique</a> et de l'Institut de Cognitique, facilite le rapprochement des anciens élèves et souhaite promouvoir la prise en compte de l'Homme dans la conception de produits et de services au sein des entreprises. Cela se concrétise notamment par l'organisation d'évènements tels que la Cognito'Conf, où des anciens échangent sur des sujets liés à la Cognitique. De plus, l'ADCOG participe chaque année au Gala de l'ENSC pour rencontrer les nouveaux diplômés et les soutenir lors de leurs premiers pas dans le monde professionnel.
                         </p>
                         <p>Convaincue par l'importance de l'échange entre anciens, l'ADCOG souhaite ralier les jeunes diplômés, à la recherche d'une première expérience professionnelle, tout comme les ingénieurs confirmés souhaitant échanger sur des pratiques ou des concepts auprès de leurs pairs. L'année 2012 marque un tournant dans l'histoire de l'association puisque désormais, le nombre d'ancien est supérieur au nombre d'étudiants au sein de l'ENSC. Il est grand temps d'organiser un réseau de qualité, efficace et solide. Mais cela est impossible sans votre soutien et votre engagement, alors n'attendez plus pour adhérer !
                         </p>
