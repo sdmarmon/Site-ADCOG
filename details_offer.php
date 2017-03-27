@@ -95,8 +95,7 @@ if(isUserConnected()){
                             <label class="control-label">Fiche de poste</label>
                         </div>
                         <div class="col-sm-6">
-                            <label for="files" class="btn btn-default"><span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span> Choisir un fichier PDF</label>
-                            <input id="files" type="file" name="file" class="filestyle pull-right"  style="visibility:hidden;" accept="application/pdf"/>
+                            <a href="/pdf/<?= $offer['fichier'] ?>" class="btn btn-default" download="Fiche_poste"><span class="icon-span-filestyle glyphicon glyphicon-file"></span> Télécharger la fiche de poste en PDF</a>
                         </div>
                     </div>
                     <div class="form-group">

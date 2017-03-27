@@ -48,8 +48,8 @@ if(isUserAdmin()){
                         </thead>
                         <tbody>
                             <?php foreach ($offers as $offer) { ?>
-                            <tr>
-                                <a href="details_offer.php?id=<?= $offer['offre_id'] ?>">
+                            
+                                <tr onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'">
                                     <th class="text-center" scope="row"><?= $offer['offre_id'] ?></th>
                                     <td><?= $offer['type'] ?></td>
                                     <td><?= $offer['titre'] ?></td>
@@ -57,34 +57,35 @@ if(isUserAdmin()){
                                     <td><?= $offer['entreprise'] ?></td>
                                     <td><?= timestampToDate($offer['date_creation'])?></td>
                                     <td><?= $offer['lieu'] ?></td>
-                                </a>
-                                <td>
-                                    <form action="update_offer.php" method="post">
-                                        <input type="hidden" name="modif" value="1">
-                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                        <button class="btn btn-xs btn-success btn-block" type="submit"><i class="glyphicon glyphicon-ok"></i></button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form action="update_offer.php" method="post">
-                                        <input type="hidden" name="modif" value="1">
-                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                        <button class="btn btn-xs btn-danger btn-block" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
+
+                                    <td>
+                                        <form action="update_offer.php" method="post">
+                                            <input type="hidden" name="modif" value="1">
+                                            <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
+                                            <button class="btn btn-xs btn-success btn-block" type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="update_offer.php" method="post">
+                                            <input type="hidden" name="modif" value="1">
+                                            <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
+                                            <button class="btn btn-xs btn-danger btn-block" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            
                             <?php } ?>
                         </tbody>
                     </table>
                 </div>
             </div>
             <?php }else{ ?>
-                <div class="alert alert-danger">
-                    <p><strong> Attention !</strong> Vous n'avez pas accès aux outils d'administration.</p>
-                </div>
-                <div>
-                    <center><a href="index.php">Revenir à l'accueil.</a></center>
-                </div>
+            <div class="alert alert-danger">
+                <p><strong> Attention !</strong> Vous n'avez pas accès aux outils d'administration.</p>
+            </div>
+            <div>
+                <center><a href="index.php">Revenir à l'accueil.</a></center>
+            </div>
             <?php } ?>
         </div>
 
