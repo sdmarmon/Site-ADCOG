@@ -4,7 +4,7 @@ session_start();
 
 // Retrieve offers
 if(isUserAdmin()){
-    $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 0');
+    $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 0 ORDER BY `date_validation` DESC');
 }
 
 ?>

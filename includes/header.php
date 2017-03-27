@@ -35,7 +35,8 @@
                                 <span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['prenom'] ?> <?php echo $_SESSION['nom'] ?> <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="cart.php">Offres favorites</a></li>
+                                <li><a href="fav_offers.php">Offres favorites</a></li>
+                                <li><a href="my_offers.php">Offres créees</a></li>
                                 <li><a href="logout.php">Déconnexion</a></li>
                             </ul>
                         </li>

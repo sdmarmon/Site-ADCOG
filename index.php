@@ -6,10 +6,10 @@ session_start();
 if(isUserConnected()){
     if($_SESSION['adherent'] == 0){
         $date_validation = time()-(60*60*24*3);
-        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '.$date_validation);
+        $offers = getDb()->query("SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation."' ORDER BY `date_validation` DESC ");
     }
     else{
-        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1'); 
+        $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC'); 
     }
 }
 

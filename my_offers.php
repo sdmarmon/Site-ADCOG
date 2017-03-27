@@ -3,8 +3,10 @@ require_once "includes/functions.php";
 session_start();
 
 // Retrieve offers
-if(isUserAdmin()){
-    $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC');
+if(isUserConnected()){
+    $login = $_SESSION['login'];
+    $req = "SELECT * FROM `offre` AS O, `creer` AS C, `personne` AS P WHERE P.personne_id = C.personne_id AND C.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC ";    
+    $offers = getDb()->query($req);
 }
 
 ?>
@@ -17,7 +19,7 @@ if(isUserAdmin()){
     <body>
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
-            <?php if(isUserAdmin()){ ?>
+            <?php if(isUserConnected()){ ?>
             <div>
                 <div>
                     <form class="navbar-form" role="search" method="post">
@@ -80,9 +82,14 @@ if(isUserAdmin()){
             </div>
             <?php }else{ ?>
                 <div class="alert alert-danger">
-                    <p><strong> Attention !</strong> Vous n'avez pas accès aux outils d'administration.</p>
+                    <p><strong> Attention !</strong> Vous devez vous connecter pour accéder à cette page.</p>
                 </div>
                 <div>
+                    <div class="text-center">
+                        <a href="login.php" title="Connexion sur le site de l'ADCOG" class="btn btn-info btn-lg">Connexion</a>
+                        <a href="signup.php" title="Inscription à l'ADCOG" class="btn  btn-primary btn-lg">Inscription</a>
+                    </div>
+                    <br><br>
                     <center><a href="index.php">Revenir à l'accueil.</a></center>
                 </div>
             <?php } ?>
