@@ -3,7 +3,7 @@ require_once "includes/functions.php";
 session_start();
 
 $exist = false;
-if (isset($_POST['modif'])) {
+if (isset($_POST['update'])) {
     $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_code` = '".$_POST["offre_code"]."' ");
     if($result->rowCount() >=1) {
         $exist = true;              
@@ -12,6 +12,33 @@ if (isset($_POST['modif'])) {
 
 }
 
+if(isset($_POST['title'])) {
+    // the offer form has been posted : retrieve offer parameters
+    $id = escape($_POST['id']);
+    $title = escape($_POST['title']);
+    $offer_type = escape($_POST['offer_type']); 
+    $company_name = escape($_POST['company_name']);
+    $activity = escape($_POST['activity']);
+    $address = escape($_POST['address']);
+    $details = escape($_POST['details']);
+    $remuneration = escape($_POST['remuneration']);
+    $contact_name = escape($_POST['contact_name']);
+    $contact_mail = escape($_POST['contact_mail']);
+    $file = $_POST['file_name'];
+
+    $tmpFile = $_FILES['file']['tmp_name'];
+    if (is_uploaded_file($tmpFile)) {
+        // upload job offer pdf
+        $file = basename($_FILES['file']['name']);
+        $uploadedFile = "pdf/$file";
+        move_uploaded_file($_FILES['file']['tmp_name'], $uploadedFile);
+    }
+    
+    // Update offer
+    $stmt = getDb()->prepare('UPDATE `offre` SET `type`= ? ,`titre`= ?, `entreprise`= ?, `valide`= ?, `secteur`= ?, `lieu`= ?, `remuneration`= ?, `contact`= ?,`fichier`= ?,`description`= ?,`nom_contact`= ? WHERE `offre_id` = ?');
+    $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $details, $contact_name,$id));
+   
+}
 ?>
 
 <!doctype html>
@@ -33,7 +60,7 @@ if (isset($_POST['modif'])) {
                     <?php if (!isset($_POST['modif']) && !$exist) {
 
                     ?>
-                    <input type="hidden" name="modif" value="1">
+                    <input type="hidden" name="update" value="1">
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                             <input type="text" name="offre_code" class="form-control" placeholder="Entrez le code de l'offre" required>
@@ -46,7 +73,8 @@ if (isset($_POST['modif'])) {
                     </div>
 
                     <?php }else{ ?>
-
+                    <input type="hidden" name="id" value="<?= $offer['offre_id'] ?>">
+                    <input type="hidden" name="file_name" value="<?= $offer['fichier'] ?>">
                     <div class="form-group">
                         <div class="col-sm-2">
                         </div>
