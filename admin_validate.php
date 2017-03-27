@@ -31,20 +31,52 @@ if(isUserAdmin()){
                         </div>
                     </form>
                 </div>
-                <ul class="list-group">
-                    <?php foreach ($offers as $offer) { ?>
-                    <li class="list-group-item list-group-item-action">
-                        <a href="details_offer.php?id=<?= $offer['offre_id'] ?>" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <strong class="text-muted pull-right"><?= $offer['type'] ?></strong>
-                            <h4 class="mb-1 text-primary"><?= $offer['titre'] ?></h4>
-                            <p class="mb-1 pull-right"><?= $offer['secteur'] ?></p>
-                            <p class="mb-1"><?= $offer['entreprise'] ?></p>
-                            <p class="mb-1 pull-right "><?= timestampToDate($offer['date_creation']) ?></p>
-                            <p class="mb-1"><?= $offer['lieu'] ?></p>
-                        </a>
-                    </li>
-                    <?php } ?>
-                </ul>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered  text-center">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Titre</th>
+                                <th class="text-center">Secteur</th>
+                                <th class="text-center">Entreprise</th>
+                                <th class="text-center">Date création</th>
+                                <th class="text-center">Lieu</th>
+                                <th class="text-center col-md-1">Valider</th>
+                                <th class="text-center col-md-1" >Rejeter</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($offers as $offer) { ?>
+                            <tr>
+                                <a href="details_offer.php?id=<?= $offer['offre_id'] ?>">
+                                    <th class="text-center" scope="row"><?= $offer['offre_id'] ?></th>
+                                    <td><?= $offer['type'] ?></td>
+                                    <td><?= $offer['titre'] ?></td>
+                                    <td><?= $offer['secteur'] ?></td>
+                                    <td><?= $offer['entreprise'] ?></td>
+                                    <td><?= timestampToDate($offer['date_creation'])?></td>
+                                    <td><?= $offer['lieu'] ?></td>
+                                </a>
+                                <td>
+                                    <form action="update_offer.php" method="post">
+                                        <input type="hidden" name="modif" value="1">
+                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
+                                        <button class="btn btn-xs btn-success btn-block" type="submit"><i class="glyphicon glyphicon-ok"></i></button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="update_offer.php" method="post">
+                                        <input type="hidden" name="modif" value="1">
+                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
+                                        <button class="btn btn-xs btn-danger btn-block" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <?php }else{ ?>
                 <div class="alert alert-danger">
