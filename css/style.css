@@ -46,15 +46,16 @@ pre {
 
 .expandingArea {
   position: relative;
+  background: #fff;
+  min-height: 100px;
 }
 
 .expandingArea > textarea,
 .expandingArea > pre {
+  background: transparent;
   /* Make the text soft-wrap */
   white-space: pre-wrap;
   word-wrap: break-word;
-  visibility: hidden;
-  display: block;
 }
 
 .expandingArea > textarea {
@@ -85,7 +86,6 @@ pre {
 .expandingArea > pre {
   display: none;
 }
-
 .expandingArea.active > pre {
   display: block;
   /* Hide the text; just using it for sizing */

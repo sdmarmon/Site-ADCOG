@@ -136,7 +136,7 @@ if(isset($_POST['title'])) {
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required><?= $offer['description'] ?></textarea>
+                                <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required><?= $offer['description'] ?></textarea>
                         </div>
                     </div>
                     <div class="form-group">
