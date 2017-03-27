@@ -60,7 +60,7 @@ if(isUserConnected()){
                 <div>
                     <h2>Bienvenue sur le site de l'ADCOG</h2>
                     <div>
-                        <p>L'association des Diplômés en Cognitique est heureuse de vous présenter la première mise à jour de son système d'information. Nouveau format. Nouveau design. Nouvelles fonctionnalités. Ces améliorations sont les premières d'une longue liste pour fournir de plus en plus d'outils à la hauteur des attentes des anciens de l'  <a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">École Nationale Supérieure de Cognitique</a>.
+                        <p>L'association des Diplômés en Cognitique est heureuse de vous présenter la première mise à jour de son système d'information. Nouveau format. Nouveau design. Nouvelles fonctionnalités. Ces améliorations sont les premières d'une longue liste pour fournir de plus en plus d'outils à la hauteur des attentes des anciens de l'<a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">École Nationale Supérieure de Cognitique</a>.
                         </p>
                         <p>Pour nous soutenir dans cette démarche il vous suffit de vous inscrire via la page <a href="signup.php">Inscription</a>. Si vous êtes déjà inscrit, connectez-vous sur la page <a href="login.php">Connexion</a>.
                         </p>
