@@ -155,7 +155,7 @@ if (isset($_POST['title'])) {
                             <label class="control-label">Mail du contact</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="contact_mail" value="" class="form-control" placeholder="Entrez le mail du contact" required>
+                            <input type="mail" name="contact_mail" value="" class="form-control" placeholder="Entrez le mail du contact" required>
                         </div>
                     </div>
                     <div class="form-group">
