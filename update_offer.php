@@ -49,7 +49,7 @@ if(isset($_POST['title'])) {
     require_once "includes/head.php"; 
     ?>
 
-    <body>
+    <body onload="dyntextarea();">
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
             <h2 class="text-center">Modifier une offre</h2>
@@ -136,7 +136,10 @@ if(isset($_POST['title'])) {
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
+                            <div class="expandingArea">
+                                <pre><span><br></span></pre>
                                 <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required><?= $offer['description'] ?></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

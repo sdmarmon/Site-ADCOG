@@ -52,4 +52,4 @@ function generateCode(){
         $generation .= $car;
     }
     return $generation;
-} 
+}
