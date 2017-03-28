@@ -11,9 +11,10 @@ if(isUserAdmin()){
             $stmt->execute(array(1,$_GET["offre_id"]));
         }
         else if($_GET["action"]=='remove'){
-            //remove offer
-            //$stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
-            //$stmt->execute(array($_GET["offre_id"]));
+            //send email 
+            $result = getDb()->query('SELECT * FROM `offre` WHERE offre_id= '.$_GET["offre_id"]);
+            $offer=$result->fetch();
+            mail($offer['contact'], 'Offre ADCOG invalidé', "Test envoi");
         }
     }
 
