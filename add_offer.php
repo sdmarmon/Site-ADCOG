@@ -24,11 +24,11 @@ if (isset($_POST['title'])) {
 
     $date_creation=time();
     $code = generateCode();
-    
+
     //insert movie into BD
     $stmt = getDb()->prepare('INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, `remuneration`, `contact`, `fichier`, `offre_code`, `description`, `date_creation`, `nom_contact`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name));
-    
+
     redirect("index.php");
 }
 
@@ -135,7 +135,10 @@ if (isset($_POST['title'])) {
                             <label class="control-label">Rémunération</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="number" name="remuneration" value="" class="form-control" placeholder="Entrez la rémunération" required>
+                            <div class="input-group">
+                                <input type="number" name="remuneration" value="" class="form-control" placeholder="Entrez la rémunération" required>
+                                <span class="input-group-addon">€</span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
