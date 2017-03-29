@@ -6,10 +6,8 @@ session_start();
 if(isUserAdmin()){
     if(isset($_GET["action"])){
         if($_GET["action"]=='update'){
-            //update offer
-            //$stmt = getDb()->prepare('UPDATE `offre` SET `valide`= ? WHERE offre_id= ? ');
-            //$stmt->execute(array(1,$_GET["offre_id"]));
             redirect("update_offer.php?offre_id=".$_GET["offre_id"]."");
+            // Redirect directement avec le lien du bouton en href ?
         }
         else if($_GET["action"]=='remove'){
             //remove offer

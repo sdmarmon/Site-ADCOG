@@ -58,7 +58,8 @@ if(isset($_POST['title'])) {
                     $exist = true;              
                     $offer = $result->fetch();
                     }
-                }?>
+                }
+            ?>
             
             <h2 class="text-center">Modifier une offre</h2>
 
