@@ -3,4 +3,4 @@
 <!-- JavaScript Boostrap plugin -->
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <!-- Our JavaScript -->
-<script src="lib/our.js"></script>
+<script src="lib/expanding.jquery.js"></script>

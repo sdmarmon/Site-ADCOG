@@ -4,12 +4,11 @@ session_start();
 
 $exist = false;
 if (isset($_POST['update'])) {
-    $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_code` = '".$_POST["offre_code"]."' ");
+    $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_code` = '".$_POST["offre_code"]."'");
     if($result->rowCount() >=1) {
         $exist = true;              
         $offer = $result->fetch();
     }
-
 }
 
 if(isset($_POST['title'])) {
@@ -51,7 +50,16 @@ if(isset($_POST['title'])) {
 
     <body onload="dyntextarea();">
         <div class="container pushFooter">
-            <?php require_once "includes/header.php"; ?>
+            <?php require_once "includes/header.php";
+            
+                if (isset($_GET['offre_id']) && isUserAdmin()){
+                    $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_id` = ".$_GET["offre_id"]."");
+                    if($result->rowCount() >=1) {
+                    $exist = true;              
+                    $offer = $result->fetch();
+                    }
+                }?>
+            
             <h2 class="text-center">Modifier une offre</h2>
 
             <div class="well">
@@ -131,15 +139,13 @@ if(isset($_POST['title'])) {
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
+                            <label class="visible-xs control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-2 pull-left">
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <div class="expandingArea">
-                                <pre><span><br></span></pre>
-                                <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required><?= $offer['description'] ?></textarea>
-                            </div>
+                            <textarea name="details" class="form-control expanding" placeholder="Entrez les détails de l'offre" required><?= $offer['description'] ?></textarea>
                         </div>
                     </div>
                     <div class="form-group">

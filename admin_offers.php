@@ -9,6 +9,7 @@ if(isUserAdmin()){
             //update offer
             //$stmt = getDb()->prepare('UPDATE `offre` SET `valide`= ? WHERE offre_id= ? ');
             //$stmt->execute(array(1,$_GET["offre_id"]));
+            redirect("update_offer.php?offre_id=".$_GET["offre_id"]."");
         }
         else if($_GET["action"]=='remove'){
             //remove offer

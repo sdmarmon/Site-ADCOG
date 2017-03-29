@@ -80,12 +80,13 @@ if(isUserConnected()){
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
+                            <label class="visible-xs control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-2 pull-left">
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="details" disabled="disabled" class="form-control" required autofocus><?= $offer['description'] ?></textarea>
+                            <textarea name="details" disabled="disabled" class="form-control expanding" required autofocus><?= $offer['description'] ?></textarea>
                         </div>
                     </div>
                     <div class="form-group">

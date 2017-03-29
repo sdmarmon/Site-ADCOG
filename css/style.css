@@ -36,51 +36,10 @@ a.blue:hover{
     margin-bottom: 51px;
 }
 
-.expandingArea {
-    position: relative;
-    min-height: 100px;
-    background: #fff;
+textarea{
+    min-height: 2em;
 }
 
-.expandingArea > pre {
-    padding: 5px;
-    background: transparent ;
-    /* Make the text soft-wrap */
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    display: none;
-}
-
-.expandingArea > textarea {
-    padding: 5px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    /* The border-box box model is used to allow
-    * padding whilst still keeping the overall width
-    * at exactly that of the containing element.
-    */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
-    /* This height is used when JS is disabled */
-    height: 100px;
-}
-
-.expandingAreaactive > textarea {
-    /* Hide any scrollbars */
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    /* Remove WebKit user-resize widget */
-    resize: none;
-}
-
-.expandingAreaactive > pre {
-    display: block;
-    /* Hide the text; just using it for sizing */
-    visibility: hidden;
+textarea.expanding {
+    overflow: hidden !important;
 }
