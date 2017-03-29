@@ -16,7 +16,7 @@ if(isUserConnected()){
 <html>
 
     <?php 
-    $pageTitle = "une offre";
+    $pageTitle = "Détails offre";
     require_once "includes/head.php"; 
     ?>
 

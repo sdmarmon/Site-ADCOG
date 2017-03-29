@@ -12,7 +12,10 @@ if(isUserAdmin()){
 <!doctype html>
 <html>
 
-    <?php require_once "includes/head.php"; ?>
+    <?php 
+    $pageTitle = "Membres (Admin)";
+    require_once "includes/head.php"; 
+    ?>
 
     <body>
         <div class="container pushFooter">

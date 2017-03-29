@@ -14,7 +14,10 @@ if(isUserConnected()){
 <!doctype html>
 <html>
 
-    <?php require_once "includes/head.php"; ?>
+    <?php 
+    $pageTitle = "Offres favorites";
+    require_once "includes/head.php"; 
+    ?>
 
     <body>
         <div class="container pushFooter">
