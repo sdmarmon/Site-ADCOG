@@ -106,7 +106,11 @@ if(isUserConnected()){
                             <label class="control-label">Rémunération</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="remuneration" value="<?= $offer['remuneration'] ?>" disabled="disabled" class="form-control" required autofocus>
+                            <div class="input-group">
+                                
+                                <input type="number" name="remuneration" value="<?= $offer['remuneration'] ?>" class="form-control" placeholder="Entrez la rémunération" disabled="disabled" required>
+                                <span class="input-group-addon">€</span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

@@ -44,12 +44,16 @@ function timestampToDate($t) {
 function generateCode(){
     $chaine = 'azertyuiopqsdfghjklmwxcvbn123456789';
     $nb_lettres = strlen($chaine) - 1;
-    $generation = '';
-    for($i=0; $i < 15; $i++)
-    {
-        $pos = mt_rand(0, $nb_lettres);
-        $car = $chaine[$pos];
-        $generation .= $car;
-    }
+    do{
+        $generation = '';
+        for($i=0; $i < 15; $i++)
+        {
+            $pos = mt_rand(0, $nb_lettres);
+            $car = $chaine[$pos];
+            $generation .= $car;
+        }
+        $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_code` = '".$generation."'");
+    }while($result->rowCount() >=1);
+
     return $generation;
 }
