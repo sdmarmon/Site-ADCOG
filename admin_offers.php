@@ -5,11 +5,7 @@ session_start();
 // Retrieve offers
 if(isUserAdmin()){
     if(isset($_GET["action"])){
-        if($_GET["action"]=='update'){
-            redirect("update_offer.php?offre_id=".$_GET["offre_id"]."");
-            // Redirect directement avec le lien du bouton en href ?
-        }
-        else if($_GET["action"]=='remove'){
+        if($_GET["action"]=='remove'){
             //remove offer
             $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
             $stmt->execute(array($_GET["offre_id"]));
@@ -74,7 +70,7 @@ if(isUserAdmin()){
                                     <td><?= $offer['lieu'] ?></td>
                                 </a>
                                 <td>
-                                    <a href="admin_offers.php?offre_id=<?= $offer['offre_id'] ?>&action=update" class="btn btn-xs btn-warning btn-block" ><i class="glyphicon glyphicon-pencil"></i></a>
+                                    <a href="update_offer.php?offre_id=<?= $offer['offre_id'] ?>" class="btn btn-xs btn-warning btn-block" ><i class="glyphicon glyphicon-pencil"></i></a>
                                 </td>
                                 <td>
                                     <a href="admin_offers.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" ><i class="glyphicon glyphicon-remove"></i></a>
