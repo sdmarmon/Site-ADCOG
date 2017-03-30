@@ -30,10 +30,12 @@ if(isUserAdmin()){
 
     <?php 
     $pageTitle = "Validation offres (Admin)";
-    require_once "includes/head.php"; 
+    require_once "includes/head.php";
+    require_once "includes/confirm.php";
     ?>
 
     <body>
+        
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
             <?php if(isUserAdmin()){ ?>
@@ -77,10 +79,10 @@ if(isUserAdmin()){
                                 <td><?= timestampToDate($offer['date_creation'])?></td>
                                 <td><?= $offer['lieu'] ?></td>
                                 <td>
-                                    <a href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=validate" class="btn btn-xs btn-success btn-block" ><i class="glyphicon glyphicon-ok"></i></a>
+                                    <a href="#" data-href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=validate" class="btn btn-xs btn-success btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-ok"></i></a>
                                 </td>
                                 <td>
-                                    <a href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" ><i class="glyphicon glyphicon-remove"></i></a>
+                                    <a href="#" data-href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-remove"></i></a>
                                 </td>
                             </tr>
 
