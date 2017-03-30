@@ -9,11 +9,13 @@ if(isUserAdmin()){
             //remove user
             $stmt = getDb()->prepare('DELETE FROM `personne` WHERE `personne_id`= ?');
             $stmt->execute(array($_GET["personne_id"]));
+            redirect("admin_members.php");
         }
         elseif($_GET["action"]=='confirm_update'){
             //update user
             //$stmt = getDb()->prepare('');
             //$stmt->execute(array());
+            redirect("admin_members.php");
         }
     }    
     $users = getDb()->query('SELECT * FROM `personne`');
@@ -40,7 +42,7 @@ if(isUserAdmin()){
             if($result->rowCount() >=1) {            
                 $user = $result->fetch();?>
 
-            <h2 class="text-center">Modifier une offre</h2>
+            <h2 class="text-center">Modifier un membre</h2>
 
             <div class="well">
                 <form class="form-horizontal" role="form" enctype="multipart/form-data" action="admin_members.php" method="post">
@@ -140,21 +142,19 @@ if(isUserAdmin()){
                         <tbody>
                             <?php foreach ($users as $user) { ?>
                             <tr>
-                                <a href="details_offer.php?id=<?= $user['personne_id'] ?>">
-                                    <th class="text-center" scope="row"><?= $user['personne_id'] ?></th>
-                                    <td><?= $user['role'] ?></td>
-                                    <td><?= $user['nom'] ?></td>
-                                    <td><?= $user['prenom'] ?></td>
-                                    <td><?= $user['mail'] ?></td>
-                                    <td><?= $user['login'] ?></td>
-                                    <?php if($user['adherent']==1) { ?>
-                                    <td>OUI</td>
-                                    <?php }else{ ?>
-                                    <td>NON</td>
-                                    <?php } ?>
-                                </a>
+                                <th class="text-center" scope="row"><?= $user['personne_id'] ?></th>
+                                <td><?= $user['role'] ?></td>
+                                <td><?= $user['nom'] ?></td>
+                                <td><?= $user['prenom'] ?></td>
+                                <td><?= $user['mail'] ?></td>
+                                <td><?= $user['login'] ?></td>
+                                <?php if($user['adherent']==1) { ?>
+                                <td>OUI</td>
+                                <?php }else{ ?>
+                                <td>NON</td>
+                                <?php } ?>
                                 <td>
-                                    <a href="#" data-href="admin_members.php?personne_id=<?= $user['personne_id'] ?>&action=update" class="btn btn-xs btn-warning btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-pencil"></i></a>
+                                    <a href="admin_members.php?personne_id=<?= $user['personne_id'] ?>&action=update" class="btn btn-xs btn-warning btn-block"><i class="glyphicon glyphicon-pencil"></i></a>
                                 </td>
                                 <td>
                                     <a href="#" data-href="admin_members.php?personne_id=<?= $user['personne_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-remove"></i></a>
@@ -178,7 +178,7 @@ if(isUserAdmin()){
         <?php require_once "includes/footer.php";?>
 
         <?php require_once "includes/scripts.php"; ?>
-        
+
     </body>
 
 </html>
