@@ -11,7 +11,7 @@ if(isUserAdmin()){
             $stmt->execute(array($_GET["offre_id"]));
         }
     }
-    
+
     $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC');
 }
 
@@ -22,7 +22,8 @@ if(isUserAdmin()){
 
     <?php 
     $pageTitle = "Offres (Admin)";
-    require_once "includes/head.php"; 
+    require_once "includes/head.php";
+    require_once "includes/confirm.php";
     ?>
 
     <body>
@@ -59,21 +60,19 @@ if(isUserAdmin()){
                         </thead>
                         <tbody>
                             <?php foreach ($offers as $offer) { ?>
-                            <tr>
-                                <a href="details_offer.php?id=<?= $offer['offre_id'] ?>">
-                                    <th class="text-center" scope="row"><?= $offer['offre_id'] ?></th>
-                                    <td><?= $offer['type'] ?></td>
-                                    <td><?= $offer['titre'] ?></td>
-                                    <td><?= $offer['secteur'] ?></td>
-                                    <td><?= $offer['entreprise'] ?></td>
-                                    <td><?= timestampToDate($offer['date_creation'])?></td>
-                                    <td><?= $offer['lieu'] ?></td>
-                                </a>
+                            <tr style="cursor:pointer">
+                                <th class="text-center" scope="row" onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['offre_id'] ?></th>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['type'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['titre'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['secteur'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['entreprise'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= timestampToDate($offer['date_creation'])?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['lieu'] ?></td>
                                 <td>
                                     <a href="update_offer.php?offre_id=<?= $offer['offre_id'] ?>" class="btn btn-xs btn-warning btn-block" ><i class="glyphicon glyphicon-pencil"></i></a>
                                 </td>
                                 <td>
-                                    <a href="admin_offers.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" ><i class="glyphicon glyphicon-remove"></i></a>
+                                    <a href="#" data-href="admin_offers.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-remove"></i></a>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -82,12 +81,12 @@ if(isUserAdmin()){
                 </div>
             </div>
             <?php }else{ ?>
-                <div class="alert alert-danger">
-                    <p><strong> Attention !</strong> Vous n'avez pas accès aux outils d'administration.</p>
-                </div>
-                <div>
-                    <center><a href="index.php">Revenir à l'accueil.</a></center>
-                </div>
+            <div class="alert alert-danger">
+                <p><strong> Attention !</strong> Vous n'avez pas accès aux outils d'administration.</p>
+            </div>
+            <div>
+                <center><a href="index.php">Revenir à l'accueil.</a></center>
+            </div>
             <?php } ?>
         </div>
 

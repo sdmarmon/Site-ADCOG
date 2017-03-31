@@ -43,3 +43,8 @@ textarea{
 textarea.expanding {
     overflow: hidden !important;
 }
+
+.clickable{
+    cursor: pointer;
+    cursor: hand;
+}

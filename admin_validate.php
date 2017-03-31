@@ -69,15 +69,14 @@ if(isUserAdmin()){
                         </thead>
                         <tbody>
                             <?php foreach ($offers as $offer) { ?>
-
-                            <tr onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'">
-                                <th class="text-center" scope="row"><?= $offer['offre_id'] ?></th>
-                                <td><?= $offer['type'] ?></td>
-                                <td><?= $offer['titre'] ?></td>
-                                <td><?= $offer['secteur'] ?></td>
-                                <td><?= $offer['entreprise'] ?></td>
-                                <td><?= timestampToDate($offer['date_creation'])?></td>
-                                <td><?= $offer['lieu'] ?></td>
+                            <tr style="cursor:pointer">
+                                <th class="text-center" scope="row" onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['offre_id'] ?></th>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['type'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['titre'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['secteur'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['entreprise'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= timestampToDate($offer['date_creation'])?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['lieu'] ?></td>
                                 <td>
                                     <a href="#" data-href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=validate" class="btn btn-xs btn-success btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-ok"></i></a>
                                 </td>
