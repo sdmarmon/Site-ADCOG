@@ -96,13 +96,13 @@ if(isUserAdmin()){
                     </div>
                 </form>
             </div>
-            <?php}
-            else {?>
+            <?php }
+            else { ?>
             <div class="alert alert-danger">
                 <p><strong> Attention !</strong> Ce membre n'existe pas.</p>
             </div>
             <div>
-                <center><a href="amdin_members.php">Retour au panneau d'aministration des membres.</a></center>
+                <center><a href="admin_members.php">Retour au panneau d'aministration des membres.</a></center>
             </div>                    
             <?php }
         }  

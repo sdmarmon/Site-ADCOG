@@ -95,9 +95,9 @@ if (isset($_POST['surname'])) {
                         </div>
                         <div class="col-sm-6">
                             <select name="state" class="form-control">
-                                <option value="valeur1">Elève</option> 
-                                <option value="valeur2" selected>Ancien élève</option>
-                                <option value="valeur3">Recruteur</option>
+                                <option value="eleve">Elève</option> 
+                                <option value="ancien eleve" selected>Ancien élève</option>
+                                <option value="recruteur">Recruteur</option>
                             </select>
                         </div>
                     </div>

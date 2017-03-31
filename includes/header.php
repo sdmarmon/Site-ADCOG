@@ -24,7 +24,7 @@
                                 <?php echo 'Administration'; ?> <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="admin_members.php">Adhérents</a></li>
+                                <li><a href="admin_members.php">Membres</a></li>
                                 <li><a href="admin_offers.php">Offres</a></li>
                                 <li><a href="admin_validate.php">Validation</a></li>
                             </ul>
