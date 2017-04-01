@@ -15,6 +15,7 @@ if (!empty($_POST['login']) and !empty($_POST['password'])) {
         $_SESSION['nom'] = $result['nom'];
         $_SESSION['prenom'] = $result['prenom'];
         $_SESSION['role'] = $result['role'];
+        $_SESSION['id'] = $result['personne_id'];
         redirect("index.php");
     }
     else {
