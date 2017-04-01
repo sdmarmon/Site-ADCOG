@@ -2,6 +2,7 @@
 require_once "includes/functions.php";
 session_start();
 
+$code = generateCode();
 if (isset($_POST['title'])) {
     // the offer form has been posted : retrieve offer parameters
     $title = escape($_POST['title']);
@@ -21,15 +22,16 @@ if (isset($_POST['title'])) {
         $uploadedFile = "pdf/$file";
         move_uploaded_file($_FILES['file']['tmp_name'], $uploadedFile);
     }
+    else{
+        $file = null;
+    }
 
     $date_creation=time();
-    $code = generateCode();
 
     //insert movie into BD
-    $stmt = getDb()->prepare('INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, `remuneration`, `contact`, `fichier`, `offre_code`, `description`, `date_creation`, `nom_contact`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
-    $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name));
+    $stmt = getDb()->prepare('INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, `remuneration`, `contact`, `fichier`, `offre_code`, `description`, `date_creation`, `nom_contact`,`date_validation`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+    $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name,0));
 
-    redirect("index.php");
 }
 
 ?>
@@ -39,12 +41,21 @@ if (isset($_POST['title'])) {
 
     <?php 
     $pageTitle = "Ajouter une offre";
-    require_once "includes/head.php"; 
+    require_once "includes/head.php";
     ?>
 
     <body>
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
+            <?php if(isset($_POST['title'])){ ?>
+            <h2 class="text-center">Attention</h2>
+            <div class="well">
+                <h4 class="text-center">Sauvegardez précieusement ce code qui vous permettra de modifier votre offre ultérieurement</h4>
+                <h3 class="text-center"><?= $code ?></h3>
+                <br>
+                <center><a href="index.php" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Revenir à l'accueil</a></center>                   
+            </div>                    
+            <?php }else{ ?>
             <h2 class="text-center">Ajouter une offre</h2>
 
             <div class="well">
@@ -169,7 +180,8 @@ if (isset($_POST['title'])) {
                         </div>
                     </div>
                 </form> 
-            </div>         
+            </div>
+            <?php } ?>
         </div>
 
         <?php require_once "includes/footer.php"; ?>

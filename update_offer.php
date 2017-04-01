@@ -32,11 +32,11 @@ if(isset($_POST['title'])) {
         $uploadedFile = "pdf/$file";
         move_uploaded_file($_FILES['file']['tmp_name'], $uploadedFile);
     }
-    
+
     // Update offer
     $stmt = getDb()->prepare('UPDATE `offre` SET `type`= ? ,`titre`= ?, `entreprise`= ?, `valide`= ?, `secteur`= ?, `lieu`= ?, `remuneration`= ?, `contact`= ?,`fichier`= ?,`description`= ?,`nom_contact`= ? WHERE `offre_id` = ?');
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $details, $contact_name,$id));
-   
+
 }
 ?>
 
@@ -51,16 +51,16 @@ if(isset($_POST['title'])) {
     <body onload="dyntextarea();">
         <div class="container pushFooter">
             <?php require_once "includes/header.php";
-            
-                if (isset($_GET['offre_id']) && isUserAdmin()){
-                    $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_id` = ".$_GET["offre_id"]."");
-                    if($result->rowCount() >=1) {
+
+            if (isset($_GET['offre_id']) && isUserAdmin()){
+                $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_id` = ".$_GET["offre_id"]."");
+                if($result->rowCount() >=1) {
                     $exist = true;              
                     $offer = $result->fetch();
-                    }
                 }
+            }
             ?>
-            
+
             <h2 class="text-center">Modifier une offre</h2>
 
             <div class="well">
@@ -170,8 +170,10 @@ if(isset($_POST['title'])) {
                             <label class="control-label">Rémunération</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="number" name="remuneration" value="<?= $offer['remuneration'] ?>" class="form-control" placeholder="Entrez la rémunération" required>
-                            <span class="input-group-addon">€</span>
+                            <div class="input-group">
+                                <input type="number" name="remuneration" value="<?= $offer['remuneration'] ?>" class="form-control" placeholder="Entrez la rémunération" required>
+                                <span class="input-group-addon">€</span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
