@@ -8,6 +8,22 @@ if(isUserConnected()){
     $stmt = getDb()->prepare('SELECT * FROM `offre` WHERE `offre_id` = ? ');
     $stmt->execute(array($offer_id));
     $offer = $stmt->fetch(); // Access first (and only) result line
+
+    if(isset($_GET['action'])){
+        if($_GET['action']=="apply"){
+            $stmt = getDb()->prepare("INSERT INTO `postuler`(`offre_id`, `personne_id`) VALUES (?,?)");
+            $stmt->execute(array($offer_id,$_SESSION['id']));
+
+        }
+        
+        if($_GET['action']=="favorite"){
+            $stmt = getDb()->prepare("INSERT INTO `sauvegarder`(`offre_id`, `personne_id`) VALUES (?,?)");
+            $stmt->execute(array($offer_id,$_SESSION['id']));
+
+        }
+
+        //redirect("index.php");
+    }
 }
 
 ?>
@@ -26,7 +42,7 @@ if(isUserConnected()){
             <h2 class="text-center">Détails de l'offre</h2>
 
             <div class="well">
-                <form class="form-horizontal" role="form" enctype="multipart/form-data" action="postulate.php" method="post">
+                <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <div class="col-sm-2">
                         </div>
@@ -107,7 +123,7 @@ if(isUserConnected()){
                         </div>
                         <div class="col-sm-6">
                             <div class="input-group">
-                                
+
                                 <input type="number" name="remuneration" value="<?= $offer['remuneration'] ?>" class="form-control" placeholder="Entrez la rémunération" disabled="disabled" required>
                                 <span class="input-group-addon">€</span>
                             </div>
@@ -136,14 +152,15 @@ if(isUserConnected()){
                     <div class="form-group">
                         <div class="col-sm-4">
                         </div>
-                        <div class="col-sm-6 text-center ">
-                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span>Postuler</button>
+                        <div class="col-sm-6 text-center">
+                            <a href="details_offer.php?id=<?= $offer['offre_id'] ?>&action=apply" class="btn btn-default btn-primary btn-lg">Postuler</a>
+                            <a href="details_offer.php?id=<?= $offer['offre_id'] ?>&action=favorite" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-star"></span> Ajouter aux offres favorites</a>
                         </div>
                     </div>
-                </form> 
+                </form>
             </div>         
         </div>
-        
+
         <?php require_once "includes/footer.php"; ?>
         <?php require_once "includes/scripts.php"; ?>
     </body>

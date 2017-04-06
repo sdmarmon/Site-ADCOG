@@ -12,10 +12,8 @@ if(isUserAdmin()){
         }
         else if($_GET["action"]=='remove'){
             //send email 
-            $result = getDb()->query('SELECT * FROM `offre` WHERE offre_id= '.$_GET["offre_id"]);
-            $offer=$result->fetch();
-            mail($offer['contact'], 'Offre ADCOG invalidé', "Bonjour,\r\nL'offre que vous avez posté a été invalidée par l’administrateur.\r\nVeuillez la modifier en utilisant le code de l'offre qui vous a été fourni.\r\n\r\n
-            Cordialement");
+            $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
+            $stmt->execute(array($_GET["offre_id"]));
         }
     }
 

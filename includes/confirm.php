@@ -10,7 +10,6 @@
             <div class="modal-body">
                 <p>Vous allez effectuer une action irréversible.</p>
                 <p>Souhaitez tout de même continuer ?</p>
-                <p class="debug-url"></p>
             </div>
 
             <div class="modal-footer">
