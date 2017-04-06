@@ -113,7 +113,7 @@ if(isUserAdmin()){
     else{ ?>
             <div>
                 <div>
-                    <form class="navbar-form" role="search" method="post">
+                    <form class="navbar-form" action="admin_members.php" role="search" method="post">
                         <div class="col-sm-3">
                         </div>
                         <div class="input-group col-sm-6">
