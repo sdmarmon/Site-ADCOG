@@ -11,13 +11,19 @@ if(isUserAdmin()){
             $stmt->execute(array($_GET["personne_id"]));
             redirect("admin_members.php");
         }
-        elseif($_GET["action"]=='confirm_update'){
+    }
+    if(isset($_POST['action'])){
+        if($_POST['action']=='confirm_update'){
+            $id = escape($_POST['id']);
+            $role = escape($_POST['role']);
+            $optradio = escape($_POST['optradio']);
+            $login = escape($_POST['login']);
             //update user
-            //$stmt = getDb()->prepare('');
-            //$stmt->execute(array());
+            $stmt = getDb()->prepare('UPDATE `personne` SET `role`= ?,`adherent`=?,`login`=? WHERE `personne_id`=?');
+            $stmt->execute(array($role,$optradio,$login,$id));
             redirect("admin_members.php");
         }
-    }    
+    }
     $users = getDb()->query('SELECT * FROM `personne`');
 }
 
@@ -48,6 +54,7 @@ if(isUserAdmin()){
                 <form class="form-horizontal" role="form" enctype="multipart/form-data" action="admin_members.php" method="post">
 
                     <input type="hidden" name="id" value="<?= $user['personne_id'] ?>">
+                    <input type="hidden" name="action" value="confirm_update">
                     <div class="form-group">
                         <div class="col-sm-2">
                         </div>
@@ -55,9 +62,9 @@ if(isUserAdmin()){
                             <label class="control-label">Role</label>
                         </div>
                         <div class="col-sm-6">
-                            <select name="offer_type" class="form-control">     
-                                <option value="administrateur"  <?php if ($user['role'] == "adminstrateur") { echo "selected" ;} ?> >Administrateur</option>
-                                <option value="ancien élève"  <?php if ($user['role'] == "ancien eleve") { echo "selected" ;} ?> >Ancien Elève</option>
+                            <select name="role" class="form-control">     
+                                <option value="administrateur"  <?php if ($user['role'] == "administrateur") { echo "selected" ;} ?> >Administrateur</option>
+                                <option value="ancien élève"  <?php if ($user['role'] == "ancien élève") { echo "selected" ;} ?> >Ancien Elève</option>
                                 <option value="élève"  <?php if ($user['role'] == "élève") { echo "selected" ;} ?> >Elève</option>
                                 <option value="recruteur"  <?php if ($user['role'] == "recruteur") { echo "selected" ;} ?> >Recruteur</option>
                             </select>
@@ -71,10 +78,10 @@ if(isUserAdmin()){
                         </div>
                         <div class="col-sm-6">
                             <div class="radio">
-                                <label><input type="radio" name="optradio" value=1>Oui</label>
+                                <label><input type="radio" name="optradio" value=1 <?php if($user['adherent'] == 1) { echo "checked" ;} ?>>Oui</label>
                             </div>
                             <div class="radio">
-                                <label><input type="radio" name="optradio" value=2>Non</label>
+                                <label><input type="radio" name="optradio" value=2<?php if($user['adherent'] == 0) { echo "checked" ;} ?>>Non</label>
                             </div>
                         </div>
                     </div>
@@ -93,7 +100,7 @@ if(isUserAdmin()){
                         <div class="col-sm-4">
                         </div>
                         <div class="col-sm-6 text-center ">
-                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span>Modifier</button>
+                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span> Modifier</button>
                         </div>
                     </div>
                 </form>
@@ -108,9 +115,7 @@ if(isUserAdmin()){
             </div>                    
             <?php }
         }  
-    }
-
-    else{ ?>
+    }else{ ?>
             <div>
                 <div>
                     <form class="navbar-form" action="admin_members.php" role="search" method="post">
