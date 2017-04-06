@@ -74,3 +74,25 @@ function truncate($text)
     //on retourne le texte
     return $text;
 }
+
+function pagination($nbPages,$page){
+    //Pagination
+    if ($nbPages > 1) //We don't need pagination for 1 page
+    {
+        // Previous page
+        if ( $page > 1){
+            echo '<a href="?page='.($page-1).'">&laquo; Précédent - </a>';
+        }
+        // Page numbers
+        for($a = 1; $a <= $nbPages; $a++){
+            if ($a == $page) // No link for the current page
+                echo ' ['.$a.'] - ';
+            else
+                echo '<a href="?page='.$a.'">'.$a.'</a> - ';
+        }
+        // Next page
+        if ($page < $nbPages){
+            echo '<a href="?page='.($page +1).'">Suivant &raquo;</a>';
+        }
+    }
+}

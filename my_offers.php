@@ -22,7 +22,9 @@ if(isUserConnected()){
     <body>
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
-            <?php if(isUserConnected()){ ?>
+            <?php if(isUserConnected()){ 
+    if($offers->rowCount() >=1){
+            ?>
             <div>
                 <div>
                     <form class="navbar-form" role="search" method="post">
@@ -83,18 +85,27 @@ if(isUserConnected()){
                     </table>
                 </div>
             </div>
-            <?php }else{ ?>
-                <div class="alert alert-danger">
-                    <p><strong> Attention !</strong> Vous devez vous connecter pour accéder à cette page.</p>
+            <?php }else{?>
+            
+            <div class="alert alert-info">
+                <p class="text-center"><strong>Vous n'avez créé aucune offre de stage ou d'emploi.</strong></p>
+            </div>
+            <div>
+                <br><br>
+                <center><a href="index.php">Revenir à l'accueil.</a></center>
+            </div>
+            <?php } }else{ ?>
+            <div class="alert alert-danger">
+                <p><strong> Attention !</strong> Vous devez vous connecter pour accéder à cette page.</p>
+            </div>
+            <div>
+                <div class="text-center">
+                    <a href="login.php" title="Connexion sur le site de l'ADCOG" class="btn btn-info btn-lg">Connexion</a>
+                    <a href="signup.php" title="Inscription à l'ADCOG" class="btn  btn-primary btn-lg">Inscription</a>
                 </div>
-                <div>
-                    <div class="text-center">
-                        <a href="login.php" title="Connexion sur le site de l'ADCOG" class="btn btn-info btn-lg">Connexion</a>
-                        <a href="signup.php" title="Inscription à l'ADCOG" class="btn  btn-primary btn-lg">Inscription</a>
-                    </div>
-                    <br><br>
-                    <center><a href="index.php">Revenir à l'accueil.</a></center>
-                </div>
+                <br><br>
+                <center><a href="index.php">Revenir à l'accueil.</a></center>
+            </div>
             <?php } ?>
         </div>
 

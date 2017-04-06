@@ -4,9 +4,16 @@ session_start();
 
 // Retrieve offers
 if(isUserConnected()){
+    $nbOfferByPage=5;
+    
     $login = $_SESSION['login'];
-    $req = "SELECT * FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC ";    
-    $offers = getDb()->query($req);
+    $queryNb = "SELECT COUNT(*) AS nboffer FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC ";
+    //Get number of offers
+    $result = getDb()->query($queryNb);
+    $totalOffers = $result->fetch();
+    $nbOffers = $totalOffers['nboffer'];
+    //Get number of pages needed    
+    $nbPages = ceil($nbOffers/$nbOfferByPage);
 }
 
 ?>
@@ -22,7 +29,20 @@ if(isUserConnected()){
     <body>
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
-            <?php if(isUserConnected()){ ?>
+            <?php if(isUserConnected()){ 
+
+    if(isset($_GET['page'])){
+        $page = $_GET['page'];
+    }else{ // Variable doesn't exist, first visit on this page  
+        $page = 1; // Page 1 by default
+    }
+
+    $firstOffer = ($page - 1) * $nbOfferByPage; //Determine the first offer needed
+
+    $req = "SELECT * FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";   
+    $offers = getDb()->query($req);
+    if($offers->rowCount() >=1){
+            ?>
             <div>
                 <div>
                     <form class="navbar-form" role="search" method="post">
@@ -51,25 +71,36 @@ if(isUserConnected()){
                     </div>
                 </div>
                 <?php } ?>
-            </div>
-            <?php }else{ ?>
-            <div class="alert alert-danger">
-                <p><strong> Attention !</strong> Vous devez vous connecter pour accéder à cette page.</p>
-            </div>
-            <div>
                 <div class="text-center">
-                    <a href="login.php" title="Connexion sur le site de l'ADCOG" class="btn btn-info btn-lg">Connexion</a>
-                    <a href="signup.php" title="Inscription à l'ADCOG" class="btn  btn-primary btn-lg">Inscription</a>
+                    <?php pagination($nbPages,$page); ?>
                 </div>
-                <br><br>
-                <center><a href="index.php">Revenir à l'accueil.</a></center>
+                <?php }else{?>
+
+                <div class="alert alert-info">
+                    <p class="text-center"><strong>Vous n'avez aucune offre dans vos favoris.</strong></p>
+                </div>
+                <div>
+                    <br><br>
+                    <center><a href="index.php">Revenir à l'accueil.</a></center>
+                </div>
+                <?php } }else{ ?>
+                <div class="alert alert-danger">
+                    <p><strong> Attention !</strong> Vous devez vous connecter pour accéder à cette page.</p>
+                </div>
+                <div>
+                    <div class="text-center">
+                        <a href="login.php" title="Connexion sur le site de l'ADCOG" class="btn btn-info btn-lg">Connexion</a>
+                        <a href="signup.php" title="Inscription à l'ADCOG" class="btn  btn-primary btn-lg">Inscription</a>
+                    </div>
+                    <br><br>
+                    <center><a href="index.php">Revenir à l'accueil.</a></center>
+                </div>
+                <?php } ?>
             </div>
-            <?php } ?>
-        </div>
 
-        <?php require_once "includes/footer.php";?>
+            <?php require_once "includes/footer.php";?>
 
-        <?php require_once "includes/scripts.php"; ?>
-    </body>
+            <?php require_once "includes/scripts.php"; ?>
+            </body>
 
-</html>
+        </html>
