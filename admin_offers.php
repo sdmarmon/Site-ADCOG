@@ -11,7 +11,7 @@ if(isUserAdmin()){
             $stmt->execute(array($_GET["offre_id"]));
         }
     }
-
+    
     $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC');
 }
 
@@ -54,6 +54,7 @@ if(isUserAdmin()){
                                 <th class="text-center">Entreprise</th>
                                 <th class="text-center">Date création</th>
                                 <th class="text-center">Lieu</th>
+                                <th class="text-center">Postulants</th>
                                 <th class="text-center col-md-1">Modifier</th>
                                 <th class="text-center col-md-1" >Supprimer</th>
                             </tr>
@@ -68,6 +69,7 @@ if(isUserAdmin()){
                                 <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['entreprise'] ?></td>
                                 <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= timestampToDate($offer['date_creation'])?></td>
                                 <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['lieu'] ?></td>
+                                <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"></td>
                                 <td>
                                     <a href="update_offer.php?offre_id=<?= $offer['offre_id'] ?>" class="btn btn-xs btn-warning btn-block" ><i class="glyphicon glyphicon-pencil"></i></a>
                                 </td>

@@ -5,7 +5,7 @@ session_start();
 // Retrieve offers
 if(isUserConnected()){
     $login = $_SESSION['login'];
-    $req = "SELECT * FROM `offre` AS O, `creer` AS C, `personne` AS P WHERE P.personne_id = C.personne_id AND C.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC ";    
+    $req = "SELECT * FROM `offre` AS O, `creer` AS C, `personne` AS P WHERE P.personne_id = C.personne_id AND C.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC "; 
     $offers = getDb()->query($req);
 }
 

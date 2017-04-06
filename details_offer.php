@@ -11,15 +11,23 @@ if(isUserConnected()){
 
     if(isset($_GET['action'])){
         if($_GET['action']=="apply"){
-            $stmt = getDb()->prepare("INSERT INTO `postuler`(`offre_id`, `personne_id`) VALUES (?,?)");
+            $stmt = getDb()->prepare('SELECT * FROM `postuler` WHERE `offre_id`= ? AND `personne_id` = ?');
             $stmt->execute(array($offer_id,$_SESSION['id']));
 
+            if($stmt->rowCount() ==0){
+                $stmt = getDb()->prepare("INSERT INTO `postuler`(`offre_id`, `personne_id`) VALUES (?,?)");
+                $stmt->execute(array($offer_id,$_SESSION['id']));
+            }
         }
-        
-        if($_GET['action']=="favorite"){
-            $stmt = getDb()->prepare("INSERT INTO `sauvegarder`(`offre_id`, `personne_id`) VALUES (?,?)");
-            $stmt->execute(array($offer_id,$_SESSION['id']));
 
+        if($_GET['action']=="favorite"){
+            $stmt = getDb()->prepare('SELECT * FROM `sauvegarder` WHERE `offre_id`= ? AND `personne_id` = ?');
+            $stmt->execute(array($offer_id,$_SESSION['id']));
+            
+            if($stmt->rowCount() ==0){
+                $stmt = getDb()->prepare("INSERT INTO `sauvegarder`(`offre_id`, `personne_id`) VALUES (?,?)");
+                $stmt->execute(array($offer_id,$_SESSION['id']));
+            }
         }
 
         //redirect("index.php");

@@ -36,33 +36,34 @@ if(isUserConnected()){
                         </div> 
                     </form>
                 </div>
-                <ul class="list-group">
-                    <?php foreach ($offers as $offer) { ?>
-                    <li class="list-group-item list-group-item-action">
-                        <a href="details_offer.php?id=<?= $offer['offre_id'] ?>" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <strong class="text-muted pull-right"><?= $offer['type'] ?></strong>
-                            <h4 class="mb-1 text-primary"><?= $offer['titre'] ?></h4>
-                            <p class="mb-1 pull-right"><?= $offer['secteur'] ?></p>
+                <?php foreach ($offers as $offer) { ?>
+                <div class="panel panel-info clickable" onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'">
+                    <div class="panel-heading"><h4 class="mb-1 text-primary"><?= $offer['titre'] ?></h4></div>
+                    <div class="panel-body">
+                        <div class="panel-body pull-left">
+                            <strong class="mb-1"><?= $offer['type'] ?></strong>
                             <p class="mb-1"><?= $offer['entreprise'] ?></p>
-                            <p class="mb-1 pull-right "><?= timestampToDate($offer['date_creation']) ?></p>
-                            <p class="mb-1"><?= $offer['lieu'] ?></p>
-                        </a>
-                    </li>
-                    <?php } ?>
-                </ul>
+                            <p class="mb-1">Activité : <?= $offer['secteur'] ?></p>
+                            <p class="mb-1">Postée le <?= timestampToDate($offer['date_creation']) ?></p>
+                            <p class="mb-1">à <?= $offer['lieu'] ?></p>
+                        </div>
+                        <div class=""><p class="mb-1"><?=  truncate(nl2br($offer['description'])) ?></p></div>
+                    </div>
+                </div>
+                <?php } ?>
             </div>
             <?php }else{ ?>
-                <div class="alert alert-danger">
-                    <p><strong> Attention !</strong> Vous devez vous connecter pour accéder à cette page.</p>
+            <div class="alert alert-danger">
+                <p><strong> Attention !</strong> Vous devez vous connecter pour accéder à cette page.</p>
+            </div>
+            <div>
+                <div class="text-center">
+                    <a href="login.php" title="Connexion sur le site de l'ADCOG" class="btn btn-info btn-lg">Connexion</a>
+                    <a href="signup.php" title="Inscription à l'ADCOG" class="btn  btn-primary btn-lg">Inscription</a>
                 </div>
-                <div>
-                    <div class="text-center">
-                        <a href="login.php" title="Connexion sur le site de l'ADCOG" class="btn btn-info btn-lg">Connexion</a>
-                        <a href="signup.php" title="Inscription à l'ADCOG" class="btn  btn-primary btn-lg">Inscription</a>
-                    </div>
-                    <br><br>
-                    <center><a href="index.php">Revenir à l'accueil.</a></center>
-                </div>
+                <br><br>
+                <center><a href="index.php">Revenir à l'accueil.</a></center>
+            </div>
             <?php } ?>
         </div>
 

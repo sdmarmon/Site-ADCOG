@@ -57,3 +57,20 @@ function generateCode(){
 
     return $generation;
 }
+
+function truncate($text)
+{
+    $max_char=500;
+    // Test si la longueur du texte dépasse la limite
+    if (strlen($text)>$max_char){
+        // Sélection du maximum de caractères
+        $text = substr($text, 0, $max_char);
+        // Récupération de la position du dernier espace (afin d'éviter de tronquer un mot)
+        $position_space = strrpos($text, " ");
+        $text = substr($text, 0, $max_char);
+        // Add "..."
+        $text = $text." ...";
+    }
+    //on retourne le texte
+    return $text;
+}

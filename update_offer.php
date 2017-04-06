@@ -167,7 +167,7 @@ if(isset($_POST['title'])) {
                         <div class="col-sm-2">
                         </div>
                         <div class="col-sm-2 pull-left">
-                            <label class="control-label">Rémunération</label>
+                            <label class="control-label">Salaire (Brut/mois)</label>
                         </div>
                         <div class="col-sm-6">
                             <div class="input-group">
