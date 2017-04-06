@@ -11,4 +11,4 @@ INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, 
 INSERT INTO `postuler`(`offre_id`, `personne_id`) SELECT offre_id, personne_id FROM offre, personne WHERE titre="Enseignant-chercheur en procrastination" AND login = "florian";
 INSERT INTO `sauvegarder`(`offre_id`, `personne_id`) SELECT offre_id, personne_id FROM offre, personne WHERE titre="Promouvoir l'école" AND login = "ancien";
 INSERT INTO `creer`(`offre_id`, `personne_id`) SELECT offre_id, personne_id FROM offre, personne WHERE titre="Enseignant-chercheur en procrastination" AND login = "moi";
-INSERT INTO `est_dispo`(`offre_id`, `personne_id`) SELECT offre_id, personne_id FROM offre, personne WHERE titre="Enseignant-chercheur en procrastination" AND login = "paul";
+INSERT INTO `est_indispo`(`offre_id`, `personne_id`) SELECT offre_id, personne_id FROM offre, personne WHERE titre="Enseignant-chercheur en procrastination" AND login = "paul";

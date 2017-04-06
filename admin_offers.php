@@ -54,7 +54,8 @@ if(isUserAdmin()){
                                 <th class="text-center">Entreprise</th>
                                 <th class="text-center">Date création</th>
                                 <th class="text-center">Lieu</th>
-                                <th class="text-center">Postulants</th>
+                                <th class="text-center"><span class="glyphicon glyphicon-user"></span></th>
+                                <th class="text-center">Dispo</th>
                                 <th class="text-center col-md-1">Modifier</th>
                                 <th class="text-center col-md-1" >Supprimer</th>
                             </tr>
@@ -70,6 +71,14 @@ if(isUserAdmin()){
                                 <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= timestampToDate($offer['date_creation'])?></td>
                                 <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['lieu'] ?></td>
                                 <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"></td>
+                                <?php if(isOfferAvailable($offer['offre_id'])){ ?>
+                                        <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><span class="glyphicon glyphicon-ok"></span></td>
+                                <?php }else{ ?>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-default btn-block"><span class="glyphicon glyphicon-flag" style="color:red"></span></a>
+                                        </td>
+                                    <?php } ?>
+                                
                                 <td>
                                     <a href="update_offer.php?offre_id=<?= $offer['offre_id'] ?>" class="btn btn-xs btn-warning btn-block" ><i class="glyphicon glyphicon-pencil"></i></a>
                                 </td>

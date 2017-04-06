@@ -29,7 +29,17 @@ if(isUserConnected()){
                 $stmt->execute(array($offer_id,$_SESSION['id']));
             }
         }
-
+        
+        if($_GET['action']=="unavailable"){
+            $stmt = getDb()->prepare('SELECT * FROM `est_indispo` WHERE `offre_id`= ? AND `personne_id` = ?');
+            $stmt->execute(array($offer_id,$_SESSION['id']));
+            
+            if($stmt->rowCount() ==0){
+                $stmt = getDb()->prepare("INSERT INTO `est_indispo`(`offre_id`, `personne_id`) VALUES (?,?)");
+                $stmt->execute(array($offer_id,$_SESSION['id']));
+            }
+        }
+        
         //redirect("index.php");
     }
 }
@@ -161,8 +171,9 @@ if(isUserConnected()){
                         <div class="col-sm-4">
                         </div>
                         <div class="col-sm-6 text-center">
-                            <a href="details_offer.php?id=<?= $offer['offre_id'] ?>&action=apply" class="btn btn-default btn-primary btn-lg">Postuler</a>
-                            <a href="details_offer.php?id=<?= $offer['offre_id'] ?>&action=favorite" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-star"></span> Ajouter aux offres favorites</a>
+                            <a href="details_offer.php?id=<?= $offer['offre_id'] ?>&action=apply" class="btn btn-primary btn-lg">Postuler</a><br><br>
+                            <a href="details_offer.php?id=<?= $offer['offre_id'] ?>&action=favorite" class="btn btn-info"><span class="glyphicon glyphicon-star"></span> Ajouter aux offres favorites</a>
+                            <a href="details_offer.php?id=<?= $offer['offre_id'] ?>&action=unavailable" class="btn btn-danger"><span class="glyphicon glyphicon-warning-sign"></span> Marquer l'offre indisponible</a>
                         </div>
                     </div>
                 </form>

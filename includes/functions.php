@@ -96,3 +96,10 @@ function pagination($nbPages,$page){
         }
     }
 }
+
+function isOfferAvailable($id)
+{
+    $stmt = getDb()->prepare('SELECT `est_indispo_id` FROM `est_indispo` WHERE `offre_id`= ?');
+    $stmt->execute(array($id));
+    return($stmt->rowCount() == 0);
+}
