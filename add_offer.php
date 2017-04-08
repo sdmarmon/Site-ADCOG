@@ -33,12 +33,12 @@ if (isset($_POST['title'])) {
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name,0));
     
     if (isUserConnected()){
-        $req = "SELECT `offre_id` FROM `offre` WHERE `title` = '".$title."' AND `date_creation` = '".$date_creation."'";
+        $req = "SELECT `offre_id` FROM `offre` WHERE `titre` = '".$title."' AND `date_creation` = '".$date_creation."'";
         $offer = getDb()->query($req);
         $req = "SELECT `personne_id` FROM `personne` WHERE `login` = '".$_SESSION['login']."' ";
-        $user_login = getDb()->query($req);
+        $user_id = getDb()->query($req);
         $stmt = getDb()->prepare('INSERT INTO `creer`(`offre_id`, `personne_id`) VALUES (?,?)');
-        $stmt->execute(array($offer['offre_id'], $user_login['login']);
+        $stmt->execute(array($offer['offre_id'], $user_id['personne_id']));
     }
 
     
