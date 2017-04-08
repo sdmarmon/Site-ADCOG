@@ -5,8 +5,8 @@ session_start();
 // Retrieve offers
 if(isUserConnected()){
     $nbOfferByPage=5;
-    //3 days delay
-    $date_validation = time()-(60*60*24*3);
+    //7 days delay
+    $date_validation = time()-(60*60*24*7);
     if($_SESSION['adherent'] == 0){
         $queryNb ="SELECT COUNT(*) AS nboffer FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation."' ORDER BY `date_validation` DESC ";
     }
