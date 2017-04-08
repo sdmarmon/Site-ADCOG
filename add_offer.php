@@ -34,9 +34,11 @@ if (isset($_POST['title'])) {
     
     if (isUserConnected()){
         $req = "SELECT `offre_id` FROM `offre` WHERE `titre` = '".$title."' AND `date_creation` = '".$date_creation."'";
-        $offer = getDb()->query($req);
+        $stmt = getDb()->query($req);
+        $offer = $stmt->fetch();
         $req = "SELECT `personne_id` FROM `personne` WHERE `login` = '".$_SESSION['login']."' ";
-        $user_id = getDb()->query($req);
+        $stmt = getDb()->query($req);
+        $user_id = $stmt->fetch();
         $stmt = getDb()->prepare('INSERT INTO `creer`(`offre_id`, `personne_id`) VALUES (?,?)');
         $stmt->execute(array($offer['offre_id'], $user_id['personne_id']));
     }
