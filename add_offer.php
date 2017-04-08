@@ -28,9 +28,20 @@ if (isset($_POST['title'])) {
 
     $date_creation=time();
 
-    //insert movie into BD
+    //insert offer into BD
     $stmt = getDb()->prepare('INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, `remuneration`, `contact`, `fichier`, `offre_code`, `description`, `date_creation`, `nom_contact`,`date_validation`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name,0));
+    
+    if (isUserConnected()){
+        $req = "SELECT `offre_id` FROM `offre` WHERE `title` = '".$title."' AND `date_creation` = '".$date_creation."'";
+        $offer = getDb()->query($req);
+        $req = "SELECT `personne_id` FROM `personne` WHERE `login` = '".$_SESSION['login']."' ";
+        $user_login = getDb()->query($req);
+        $stmt = getDb()->prepare('INSERT INTO `creer`(`offre_id`, `personne_id`) VALUES (?,?)');
+        $stmt->execute(array($offer['offre_id'], $user_login['login']);
+    }
+
+    
 }
 
 ?>
