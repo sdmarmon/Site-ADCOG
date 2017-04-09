@@ -4,10 +4,17 @@ session_start();
 
 // Retrieve offers
 if(isUserConnected()){
+    // Recherche
+    $like ="";
+    if(isset($_POST['search'])){
+        $search = $_POST['search'];
+        $like = " AND `titre` LIKE '%".$search."%' ";
+    }
+    
     $nbOfferByPage=5;
     
     $login = $_SESSION['login'];
-    $queryNb = "SELECT COUNT(*) AS nboffer FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC ";
+    $queryNb = "SELECT COUNT(*) AS nboffer FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ".$like." ORDER BY `date_validation` DESC ";
     //Get number of offers
     $result = getDb()->query($queryNb);
     $totalOffers = $result->fetch();
@@ -39,7 +46,7 @@ if(isUserConnected()){
 
     $firstOffer = ($page - 1) * $nbOfferByPage; //Determine the first offer needed
 
-    $req = "SELECT * FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";   
+    $req = "SELECT * FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ".$like." ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";   
     $offers = getDb()->query($req);
     if($offers->rowCount() >=1){
             ?>
@@ -49,7 +56,7 @@ if(isUserConnected()){
                         <div class="col-sm-3">
                         </div>
                         <div class="input-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="Rechercher une offre" name="search">
+                            <input type="text" class="form-control" placeholder="Entrez un mot-clé pour rechercher une offre" name="search">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
