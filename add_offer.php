@@ -42,7 +42,6 @@ if (isset($_POST['title'])) {
         $stmt = getDb()->prepare('INSERT INTO `creer`(`offre_id`, `personne_id`) VALUES (?,?)');
         $stmt->execute(array($offer['offre_id'], $user_id['personne_id']));
     }
-
     
 }
 
@@ -60,10 +59,13 @@ if (isset($_POST['title'])) {
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
             <?php if(isset($_POST['title'])){ ?>
-            <h2 class="text-center">Attention</h2>
+            <h2 class="text-center"><span class="glyphicon glyphicon-info-sign"></span></h2>
             <div class="well">
-                <h4 class="text-center">Sauvegardez précieusement ce code qui vous permettra de modifier votre offre ultérieurement</h4>
-                <h3 class="text-center"><?= $code ?></h3>
+                <h4 class="text-center">Sauvegardez précieusement ce code qui vous permettra de modifier votre offre ultérieurement.</h4>
+                <?php if(isUserConnected()){ ?>
+                <h5 class="text-center">Vous pouvez également modifier l'offre depuis vos offres crées.</h5>
+                <?php } ?>
+                <h3 class="text-center" style="color:red"><?= $code ?></h3>
                 <br>
                 <center><a href="index.php" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Revenir à l'accueil</a></center>                   
             </div>                    
@@ -134,7 +136,7 @@ if (isset($_POST['title'])) {
                             <label class="control-label">Détails de l'offre</label>
                         </div>
                         <div class="col-sm-6">
-                            <textarea name="details" class="form-control" placeholder="Entrez les détails de l'offre" required></textarea>
+                            <textarea name="details" class="form-control expanding" placeholder="Entrez les détails de l'offre" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">

@@ -2,13 +2,20 @@
 require_once "includes/functions.php";
 session_start();
 
+if(isset($_GET["action"]) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
+    if($_GET["action"]=='remove'){
+        //remove offer
+        $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
+        $stmt->execute(array($_GET["offre_id"]));
+    }
+}
+
 // Retrieve offers
 if(isUserConnected()){
     $login = $_SESSION['login'];
     $req = "SELECT * FROM `offre` AS O, `creer` AS C, `personne` AS P WHERE P.personne_id = C.personne_id AND C.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC "; 
     $offers = getDb()->query($req);
 }
-
 ?>
 
 <!doctype html>
@@ -16,7 +23,8 @@ if(isUserConnected()){
 
     <?php 
     $pageTitle = "Offres crées";
-    require_once "includes/head.php"; 
+    require_once "includes/head.php";
+    require_once "includes/confirm.php";
     ?>
 
     <body>
@@ -55,29 +63,21 @@ if(isUserConnected()){
                         </thead>
                         <tbody>
                             <?php foreach ($offers as $offer) { ?>
-                            <tr>
+                            <tr style="cursor:pointer">
                                 <a href="details_offer.php?id=<?= $offer['offre_id'] ?>">
                                     <th class="text-center" scope="row"><?= $offer['offre_id'] ?></th>
-                                    <td><?= $offer['type'] ?></td>
-                                    <td><?= $offer['titre'] ?></td>
-                                    <td><?= $offer['secteur'] ?></td>
-                                    <td><?= $offer['entreprise'] ?></td>
-                                    <td><?= timestampToDate($offer['date_creation'])?></td>
-                                    <td><?= $offer['lieu'] ?></td>
+                                    <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['type'] ?></td>
+                                    <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['titre'] ?></td>
+                                    <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['secteur'] ?></td>
+                                    <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['entreprise'] ?></td>
+                                    <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= timestampToDate($offer['date_creation'])?></td>
+                                    <td onclick="document.location='details_offer.php?id=<?= $offer['offre_id'] ?>'"><?= $offer['lieu'] ?></td>
                                 </a>
                                 <td>
-                                    <form action="update_offer.php" method="post">
-                                        <input type="hidden" name="modif" value="1">
-                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                        <button class="btn btn-xs btn-warning btn-block" type="submit"><i class="glyphicon glyphicon-pencil"></i></button>
-                                    </form>
+                                    <a href="update_offer.php?offre_id=<?= $offer['offre_id'] ?>" class="btn btn-xs btn-warning btn-block" ><i class="glyphicon glyphicon-pencil"></i></a>
                                 </td>
                                 <td>
-                                    <form action="update_offer.php" method="post">
-                                        <input type="hidden" name="modif" value="1">
-                                        <input type="hidden" name="offre_code" value="<?= $offer['offre_id'] ?>">
-                                        <button class="btn btn-xs btn-danger btn-block" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
-                                    </form>
+                                    <a href="#" data-href="my_offers.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-remove"></i></a>
                                 </td>
                             </tr>
                             <?php } ?>

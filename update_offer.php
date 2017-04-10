@@ -36,8 +36,22 @@ if(isset($_POST['title'])) {
     // Update offer
     $stmt = getDb()->prepare('UPDATE `offre` SET `type`= ? ,`titre`= ?, `entreprise`= ?, `valide`= ?, `secteur`= ?, `lieu`= ?, `remuneration`= ?, `contact`= ?,`fichier`= ?,`description`= ?,`nom_contact`= ? WHERE `offre_id` = ?');
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $details, $contact_name,$id));
-
 }
+
+if(isset($_GET["action"]) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
+    if($_GET["action"]=='remove'){
+        //remove offer
+        $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
+        $stmt->execute(array($_GET["offre_id"]));
+        if (isUserConnected()){
+            redirect("my_offers.php");
+        }
+        else{
+            redirect("index.php");
+        }
+    }
+}
+
 ?>
 
 <!doctype html>
@@ -45,14 +59,15 @@ if(isset($_POST['title'])) {
 
     <?php 
     $pageTitle = "Modifier une offre";
-    require_once "includes/head.php"; 
+    require_once "includes/head.php";
+    require_once "includes/confirm.php";
     ?>
 
     <body onload="dyntextarea();">
         <div class="container pushFooter">
             <?php require_once "includes/header.php";
 
-            if (isset($_GET['offre_id']) && isUserAdmin()){
+            if (isset($_GET['offre_id']) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
                 $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_id` = ".$_GET["offre_id"]."");
                 if($result->rowCount() >=1) {
                     $exist = true;              
@@ -200,7 +215,8 @@ if(isset($_POST['title'])) {
                         <div class="col-sm-4">
                         </div>
                         <div class="col-sm-6 text-center ">
-                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span>Modifier</button>
+                            <button type="submit" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-save"></span> Modifier</button>
+                            <a href="#" data-href="update_offer.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" data-toggle="modal" data-target="#confirm-alert"><button class="btn btn-default btn-danger btn-lg"><span class="glyphicon glyphicon-remove"></span> Supprimer</button></a>
                         </div>
                     </div>
                     <?php } ?>

@@ -25,6 +25,19 @@ function isUserAdmin() {
     }
 }
 
+function isMyOffer($offer_id){
+    $result = getDb()->query("SELECT * FROM `personne` WHERE `login` = '".$_SESSION['login']."'");
+    $personne = $result->fetch();
+    $stmt = getDb()->prepare('SELECT * FROM `creer` WHERE `offre_id`= ? AND `personne_id`= ?');
+    $stmt->execute(array($offer_id, $personne['personne_id']));
+    if($stmt->rowCount() >=1) {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 // Redirect to a URL
 function redirect($url) {
     header("Location: $url");

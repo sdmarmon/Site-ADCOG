@@ -2,7 +2,6 @@
 require_once "includes/functions.php";
 session_start();
 
-// Retrieve offers
 if(isUserAdmin()){
     if(isset($_GET["action"])){
         if($_GET["action"]=='remove'){
@@ -12,6 +11,7 @@ if(isUserAdmin()){
         }
     }
     
+    // Retrieve offers
     $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC');
 }
 
