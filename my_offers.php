@@ -12,8 +12,15 @@ if(isset($_GET["action"]) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
 
 // Retrieve offers
 if(isUserConnected()){
+    // Recherche
+    $like ="";
+    if(isset($_POST['search'])){
+        $search = $_POST['search'];
+        $like = " AND `titre` LIKE '%".$search."%' ";
+    }
+    
     $login = $_SESSION['login'];
-    $req = "SELECT * FROM `offre` AS O, `creer` AS C, `personne` AS P WHERE P.personne_id = C.personne_id AND C.offre_id = O.offre_id AND P.login = '".$login."' ORDER BY `date_validation` DESC "; 
+    $req = "SELECT * FROM `offre` AS O, `creer` AS C, `personne` AS P WHERE P.personne_id = C.personne_id AND C.offre_id = O.offre_id AND P.login = '".$login."' ".$like." ORDER BY `date_validation` DESC "; 
     $offers = getDb()->query($req);
 }
 ?>
@@ -39,7 +46,7 @@ if(isUserConnected()){
                         <div class="col-sm-3">
                         </div>
                         <div class="input-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="Rechercher une offre" name="search">
+                            <input type="text" class="form-control" placeholder="Entrez un mot-clé pour rechercher une offre" name="search">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>

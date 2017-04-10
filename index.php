@@ -4,14 +4,19 @@ session_start();
 
 // Retrieve offers
 if(isUserConnected()){
+    $like ="";
+    if(isset($_POST['search'])){
+        $search = $_POST['search'];
+        $like = " AND `titre` LIKE '%".$search."%' ";
+    }
+    
     $nbOfferByPage=5;
     //7 days delay
     $date_validation = time()-(60*60*24*7);
     if($_SESSION['adherent'] == 0){
-        $queryNb ="SELECT COUNT(*) AS nboffer FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation."' ORDER BY `date_validation` DESC ";
-    }
-    else{
-        $queryNb = 'SELECT COUNT(*) AS nboffer FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC';
+        $queryNb ="SELECT COUNT(*) AS nboffer FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation.$like."' ORDER BY `date_validation` DESC ";
+    }else{
+        $queryNb = 'SELECT COUNT(*) AS nboffer FROM `offre` WHERE `valide` = 1 '.$like.' ORDER BY `date_validation` DESC';
     }
     //Get number of offers
     $result = getDb()->query($queryNb);
@@ -43,19 +48,20 @@ if(isUserConnected()){
     //Determine the first offer needed
     $firstOffer = ($page - 1) * $nbOfferByPage;
     if($_SESSION['adherent'] == 0){
-        $query="SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation."' ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";
+        $query="SELECT * FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation.$like."' ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";
     }else{
-        $query = "SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";
+        $query = "SELECT * FROM `offre` WHERE `valide` = 1 ".$like." ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";
     }
     $offers = getDb()->query($query);
             ?>
             <div>
                 <div>
-                    <form class="navbar-form" role="search" method="post">
+                    <form class="navbar-form" role="search" action="index.php" method="post">
                         <div class="col-sm-3">
                         </div>
                         <div class="input-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="Rechercher une offre" name="search">
+                            <input type="text" class="form-control" placeholder="Entrez un mot-clé pour rechercher une offre" name="search">
+                            <input type="hidden" name="action" value="search">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
