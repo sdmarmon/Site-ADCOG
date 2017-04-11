@@ -33,6 +33,7 @@ if (isset($_POST['title'])) {
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name,0));
     
     if (isUserConnected()){
+        //Link between the user and his offer
         $req = "SELECT `offre_id` FROM `offre` WHERE `titre` = '".$title."' AND `date_creation` = '".$date_creation."'";
         $stmt = getDb()->query($req);
         $offer = $stmt->fetch();

@@ -78,20 +78,21 @@ function generateCode(){
     return $generation;
 }
 
+// Limit the number of characters 
 function truncate($text)
 {
     $max_char=500;
-    // Test si la longueur du texte dépasse la limite
+    // Text length is over the limit
     if (strlen($text)>$max_char){
-        // Sélection du maximum de caractères
+        // Define maximum char number
         $text = substr($text, 0, $max_char);
-        // Récupération de la position du dernier espace (afin d'éviter de tronquer un mot)
+        // Get position of the last space
         $position_space = strrpos($text, " ");
         $text = substr($text, 0, $max_char);
         // Add "..."
         $text = $text." ...";
     }
-    // On retourne le texte
+    // Return the text
     return $text;
 }
 
