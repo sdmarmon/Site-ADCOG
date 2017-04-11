@@ -4,7 +4,7 @@ session_start();
 
 $code = generateCode();
 if (isset($_POST['title'])) {
-    // the offer form has been posted : retrieve offer parameters
+    // The offer form has been posted : retrieve offer parameters
     $title = escape($_POST['title']);
     $offer_type = escape($_POST['offer_type']); 
     $company_name = escape($_POST['company_name']);
@@ -28,7 +28,7 @@ if (isset($_POST['title'])) {
 
     $date_creation=time();
 
-    //insert offer into BD
+    // Insert offer into BD
     $stmt = getDb()->prepare('INSERT INTO `offre`(`type`, `titre`, `entreprise`, `valide`, `secteur`, `lieu`, `remuneration`, `contact`, `fichier`, `offre_code`, `description`, `date_creation`, `nom_contact`,`date_validation`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
     $stmt->execute(array($offer_type, $title, $company_name,0, $activity, $address, $remuneration, $contact_mail, $file, $code, $details, $date_creation, $contact_name,0));
     
@@ -61,6 +61,7 @@ if (isset($_POST['title'])) {
             <?php if(isset($_POST['title'])){ ?>
             <h2 class="text-center"><span class="glyphicon glyphicon-info-sign"></span></h2>
             <div class="well">
+                <!-- Retrieve the offer's code -->
                 <h4 class="text-center">Sauvegardez précieusement ce code qui vous permettra de modifier votre offre ultérieurement.</h4>
                 <?php if(isUserConnected()){ ?>
                 <h5 class="text-center">Vous pouvez également modifier l'offre depuis vos offres crées.</h5>
@@ -201,5 +202,5 @@ if (isset($_POST['title'])) {
         <?php require_once "includes/footer.php"; ?>
         <?php require_once "includes/scripts.php"; ?>
     </body>
-
+    
 </html>

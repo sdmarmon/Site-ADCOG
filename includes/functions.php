@@ -16,6 +16,7 @@ function isUserConnected() {
     return isset($_SESSION['login']);
 }
 
+// Check if a user is an administrator
 function isUserAdmin() {
     if (isUserConnected()) {
         return ($_SESSION['role']=='administrateur');
@@ -25,12 +26,13 @@ function isUserAdmin() {
     }
 }
 
-function isMyOffer($offer_id){
+// Check if the offer was posted by the user
+function isMyOffer($offerId){
     if (isUserConnected()){
         $result = getDb()->query("SELECT * FROM `personne` WHERE `login` = '".$_SESSION['login']."'");
         $personne = $result->fetch();
         $stmt = getDb()->prepare('SELECT * FROM `creer` WHERE `offre_id`= ? AND `personne_id`= ?');
-        $stmt->execute(array($offer_id, $personne['personne_id']));
+        $stmt->execute(array($offerId, $personne['personne_id']));
         if($stmt->rowCount() >=1) {
             return true;
         }
@@ -89,13 +91,13 @@ function truncate($text)
         // Add "..."
         $text = $text." ...";
     }
-    //on retourne le texte
+    // On retourne le texte
     return $text;
 }
 
 function pagination($nbPages,$page){
-    //Pagination
-    if ($nbPages > 1) //We don't need pagination for 1 page
+    // Pagination
+    if ($nbPages > 1) // We don't need pagination for 1 page
     {
         // Previous page
         if ( $page > 1){
@@ -115,6 +117,7 @@ function pagination($nbPages,$page){
     }
 }
 
+// Check if an offer is available
 function isOfferAvailable($id)
 {
     $stmt = getDb()->prepare('SELECT `est_indispo_id` FROM `est_indispo` WHERE `offre_id`= ?');

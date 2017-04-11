@@ -6,17 +6,17 @@ session_start();
 if(isUserAdmin()){
     if(isset($_GET["action"])){
         if($_GET["action"]=='validate'){
-            //validate offer
+            // Validate offer
             $stmt = getDb()->prepare('UPDATE `offre` SET `valide`= ? WHERE offre_id= ? ');
             $stmt->execute(array(1,$_GET["offre_id"]));
         }
         else if($_GET["action"]=='remove'){
-            //send email 
+            // Remove offer
             $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
             $stmt->execute(array($_GET["offre_id"]));
         }
     }
-
+    // Retrieve offers
     $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 0 ORDER BY `date_validation` DESC');
 }
 
@@ -33,7 +33,6 @@ if(isUserAdmin()){
     ?>
 
     <body>
-        
         <div class="container pushFooter">
             <?php require_once "includes/header.php"; ?>
             <?php if(isUserAdmin()){ ?>
@@ -82,7 +81,6 @@ if(isUserAdmin()){
                                     <a href="#" data-href="admin_validate.php?offre_id=<?= $offer['offre_id'] ?>&action=remove" class="btn btn-xs btn-danger btn-block" data-toggle="modal" data-target="#confirm-alert"><i class="glyphicon glyphicon-remove"></i></a>
                                 </td>
                             </tr>
-
                             <?php } ?>
                         </tbody>
                     </table>
@@ -99,7 +97,6 @@ if(isUserAdmin()){
         </div>
 
         <?php require_once "includes/footer.php";?>
-
         <?php require_once "includes/scripts.php"; ?>
     </body>
 

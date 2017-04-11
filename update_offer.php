@@ -4,6 +4,7 @@ session_start();
 
 $exist = false;
 if (isset($_POST['update'])) {
+    // The offer's code has been posted
     $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_code` = '".$_POST["offre_code"]."'");
     if($result->rowCount() >=1) {
         $exist = true;              
@@ -12,7 +13,7 @@ if (isset($_POST['update'])) {
 }
 
 if(isset($_POST['title'])) {
-    // the offer form has been posted : retrieve offer parameters
+    // The offer form has been posted : retrieve offer parameters
     $id = escape($_POST['id']);
     $title = escape($_POST['title']);
     $offer_type = escape($_POST['offer_type']); 
@@ -27,7 +28,7 @@ if(isset($_POST['title'])) {
 
     $tmpFile = $_FILES['file']['tmp_name'];
     if (is_uploaded_file($tmpFile)) {
-        // upload job offer pdf
+        // Upload job offer pdf
         $file = basename($_FILES['file']['name']);
         $uploadedFile = "pdf/$file";
         move_uploaded_file($_FILES['file']['tmp_name'], $uploadedFile);
@@ -40,7 +41,7 @@ if(isset($_POST['title'])) {
 
 if(isset($_GET["action"]) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
     if($_GET["action"]=='remove'){
-        //remove offer
+        // Remove offer
         $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
         $stmt->execute(array($_GET["offre_id"]));
         if (isUserConnected()){
@@ -68,6 +69,7 @@ if(isset($_GET["action"]) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
             <?php require_once "includes/header.php";
 
             if (isset($_GET['offre_id']) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
+                // Redirected from admin_offers or my_offers
                 $result = getDb()->query("SELECT * FROM `offre` WHERE `offre_id` = ".$_GET["offre_id"]."");
                 if($result->rowCount() >=1) {
                     $exist = true;              

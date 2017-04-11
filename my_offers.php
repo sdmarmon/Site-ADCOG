@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_GET["action"]) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
     if($_GET["action"]=='remove'){
-        //remove offer
+        // Remove offer
         $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
         $stmt->execute(array($_GET["offre_id"]));
     }
@@ -12,7 +12,7 @@ if(isset($_GET["action"]) && (isUserAdmin() || isMyOffer($_GET["offre_id"]))){
 
 // Retrieve offers
 if(isUserConnected()){
-    // Recherche
+    // Search
     $like ="";
     if(isset($_POST['search'])){
         $search = $_POST['search'];
@@ -117,7 +117,6 @@ if(isUserConnected()){
         </div>
 
         <?php require_once "includes/footer.php";?>
-
         <?php require_once "includes/scripts.php"; ?>
     </body>
 

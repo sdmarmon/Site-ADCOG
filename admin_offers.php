@@ -5,12 +5,11 @@ session_start();
 if(isUserAdmin()){
     if(isset($_GET["action"])){
         if($_GET["action"]=='remove'){
-            //remove offer
+            // Remove offer
             $stmt = getDb()->prepare('DELETE FROM `offre` WHERE `offre_id`= ?');
             $stmt->execute(array($_GET["offre_id"]));
         }
     }
-    
     // Retrieve offers
     $offers = getDb()->query('SELECT * FROM `offre` WHERE `valide` = 1 ORDER BY `date_validation` DESC');
 }
@@ -102,7 +101,6 @@ if(isUserAdmin()){
         </div>
 
         <?php require_once "includes/footer.php";?>
-
         <?php require_once "includes/scripts.php"; ?>
     </body>
 

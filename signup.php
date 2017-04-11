@@ -3,7 +3,7 @@ require_once "includes/functions.php";
 session_start();
 
 if (isset($_POST['surname'])) {
-    // the sign up form has been posted : retrieve user infos
+    // The sign up form has been posted : retrieve user infos
     $surname = escape($_POST['surname']);
     $name = escape($_POST['name']); 
     $login = escape($_POST['login']);
@@ -11,7 +11,7 @@ if (isset($_POST['surname'])) {
     $state = escape($_POST['state']);
     $mail = escape($_POST['mail']);
     
-    // insert user into BD
+    // Insert user into BD
     $stmt = getDb()->prepare('INSERT INTO `personne`(`role`, `adherent`, `login`, `password`, `nom`, `prenom`, `mail`) VALUES (?,?,?,?,?,?,?)');
     $stmt->execute(array($state, 0, $login, $password, $surname, $name, $mail));
     

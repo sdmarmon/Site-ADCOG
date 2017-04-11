@@ -2,8 +2,8 @@
 require_once "includes/functions.php";
 session_start();
 
-// Retrieve offer
 if(isUserConnected()){
+    // Retrieve offer
     $offer_id = $_GET['id'];
     $stmt = getDb()->prepare('SELECT * FROM `offre` WHERE `offre_id` = ? ');
     $stmt->execute(array($offer_id));
@@ -39,8 +39,7 @@ if(isUserConnected()){
                 $stmt->execute(array($offer_id,$_SESSION['id']));
             }
         }
-        
-        //redirect("index.php");
+        redirect("index.php");
     }
 }
 

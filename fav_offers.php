@@ -2,9 +2,8 @@
 require_once "includes/functions.php";
 session_start();
 
-// Retrieve offers
 if(isUserConnected()){
-    // Recherche
+    // Search
     $like ="";
     if(isset($_POST['search'])){
         $search = $_POST['search'];
@@ -15,11 +14,11 @@ if(isUserConnected()){
     
     $login = $_SESSION['login'];
     $queryNb = "SELECT COUNT(*) AS nboffer FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ".$like." ORDER BY `date_validation` DESC ";
-    //Get number of offers
+    // Get number of offers
     $result = getDb()->query($queryNb);
     $totalOffers = $result->fetch();
     $nbOffers = $totalOffers['nboffer'];
-    //Get number of pages needed    
+    // Get number of pages needed    
     $nbPages = ceil($nbOffers/$nbOfferByPage);
 }
 
@@ -44,7 +43,7 @@ if(isUserConnected()){
         $page = 1; // Page 1 by default
     }
 
-    $firstOffer = ($page - 1) * $nbOfferByPage; //Determine the first offer needed
+    $firstOffer = ($page - 1) * $nbOfferByPage; // Determine the first offer needed
 
     $req = "SELECT * FROM `offre` AS O, `sauvegarder` AS S, `personne` AS P WHERE P.personne_id = S.personne_id AND S.offre_id = O.offre_id AND P.login = '".$login."' ".$like." ORDER BY `date_validation` DESC LIMIT $firstOffer, $nbOfferByPage";   
     $offers = getDb()->query($req);
@@ -104,10 +103,9 @@ if(isUserConnected()){
                 </div>
                 <?php } ?>
             </div>
-
+        </div>
             <?php require_once "includes/footer.php";?>
-
             <?php require_once "includes/scripts.php"; ?>
-            </body>
-
-        </html>
+    </body>
+    
+</html>

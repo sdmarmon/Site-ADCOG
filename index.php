@@ -2,8 +2,8 @@
 require_once "includes/functions.php";
 session_start();
 
-// Retrieve offers
 if(isUserConnected()){
+    // Search
     $like ="";
     if(isset($_POST['search'])){
         $search = $_POST['search'];
@@ -11,18 +11,18 @@ if(isUserConnected()){
     }
     
     $nbOfferByPage=5;
-    //7 days delay
+    // 7 days delay
     $date_validation = time()-(60*60*24*7);
     if($_SESSION['adherent'] == 0){
         $queryNb ="SELECT COUNT(*) AS nboffer FROM `offre` WHERE `valide` = 1 AND`date_validation` < '".$date_validation.$like."' ORDER BY `date_validation` DESC ";
     }else{
         $queryNb = 'SELECT COUNT(*) AS nboffer FROM `offre` WHERE `valide` = 1 '.$like.' ORDER BY `date_validation` DESC';
     }
-    //Get number of offers
+    // Get number of offers
     $result = getDb()->query($queryNb);
     $totalOffers = $result->fetch();
     $nbOffers = $totalOffers['nboffer'];
-    //Get number of pages needed
+    // Get number of pages needed
     $nbPages = ceil($nbOffers/$nbOfferByPage);
 
 }
@@ -115,10 +115,10 @@ if(isUserConnected()){
                 </div>
                 <?php } ?>
             </div>
+        </div>
 
-            <?php require_once "includes/footer.php";?>
-
-            <?php require_once "includes/scripts.php"; ?>
-            </body>
-
-        </html>
+        <?php require_once "includes/footer.php";?>
+        <?php require_once "includes/scripts.php"; ?>
+    </body>
+    
+</html>
